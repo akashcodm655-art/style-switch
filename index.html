@@ -397,6 +397,26 @@ body:hover .cursor-dot { opacity: 1; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+/* ===== RETURN VISIT — skip all hero animations ===== */
+body.no-anim .hero-eyebrow,
+html.no-anim .hero-eyebrow,
+body.no-anim .hero-headline,
+html.no-anim .hero-headline,
+body.no-anim .hero-tagline,
+html.no-anim .hero-tagline,
+body.no-anim .hero-btns,
+html.no-anim .hero-btns,
+body.no-anim .hero-scroll,
+html.no-anim .hero-scroll,
+body.no-anim .hero-divider,
+html.no-anim .hero-divider {
+  animation: none !important;
+  opacity: 1 !important;
+  width: 120px;
+}
+body.no-anim .preloader,
+html.no-anim .preloader { display: none !important; }
+
 /* ===== MARQUEE STRIP ===== */
 .marquee-strip {
   background: var(--gold); padding: 0.85rem 0; overflow: hidden;
@@ -2347,6 +2367,16 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
 </a>
 
 <script>
+// ─── APPLY NO-ANIM IMMEDIATELY (before paint) on return visits ───
+if (sessionStorage.getItem('visited')) {
+  document.documentElement.classList.add('no-anim');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('no-anim');
+  });
+}
+</script>
+
+<script>
 // ─── PRELOADER ───
 window.addEventListener('load', () => {
   const isReturn = sessionStorage.getItem('visited');
@@ -2356,6 +2386,7 @@ window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     preloader.style.transition = 'none';
     preloader.classList.add('hidden');
+    document.body.classList.add('no-anim');
 
     // Restore scroll position
     const savedScroll = sessionStorage.getItem('scrollPos');
