@@ -17,7 +17,7 @@
 <meta property="og:title" content="Style Switch Family Salon | Best Salon in Kharghar, Navi Mumbai"/>
 <meta property="og:description" content="Premium family salon in Kharghar offering hair styling, bridal packages, facials, nail art & spa treatments. Book now via WhatsApp!"/>
 <meta property="og:url" content="https://styleswitchsalon.in/"/>
-<meta property="og:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=85"/>
+<meta property="og:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=75&auto=format&fit=crop"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="Style Switch Family Salon - Premium Salon in Kharghar"/>
@@ -34,7 +34,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Style Switch Family Salon | Best Salon in Kharghar"/>
 <meta name="twitter:description" content="Premium family salon in Kharghar — hair styling, bridal, facials, nail art & spa. Book now!"/>
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=85"/>
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=75&auto=format&fit=crop"/>
 
 <!-- ===== GEO TAGS ===== -->
 <meta name="geo.region" content="IN-MH"/>
@@ -48,7 +48,7 @@
   "@context": "https://schema.org",
   "@type": "HairSalon",
   "name": "Style Switch Family Salon",
-  "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=85",
+  "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=75&auto=format&fit=crop",
   "url": "https://styleswitchsalon.in/",
   "telephone": "+919149151763",
   "priceRange": "₹₹",
@@ -161,7 +161,9 @@
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2312100E'/%3E%3Ctext x='32' y='22' font-family='Georgia%2C serif' font-size='11' font-weight='400' fill='%23F5F0E8' text-anchor='middle' letter-spacing='1'%3EStyle%3C/text%3E%3Ctext x='32' y='36' font-family='Georgia%2C serif' font-size='11' font-style='italic' fill='%23C9A84C' text-anchor='middle' letter-spacing='1'%3ESwitch%3C/text%3E%3Crect x='16' y='41' width='32' height='1' fill='%23C9A84C' opacity='0.6'/%3E%3Ctext x='32' y='52' font-family='Georgia%2C serif' font-size='6' fill='%23C9A84C' text-anchor='middle' letter-spacing='2' opacity='0.8'%3ESALON%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/></noscript>
 <style>
 /* ===== VARIABLES ===== */
 :root {
@@ -302,7 +304,7 @@ body:hover .cursor-dot { opacity: 1; }
   position: absolute; inset: 0;
   background:
     linear-gradient(155deg, rgba(18,16,14,0.92) 0%, rgba(139,0,0,0.35) 45%, rgba(18,16,14,0.95) 100%),
-    url("https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1800&q=85") center/cover no-repeat;
+    url("https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=75&auto=format&fit=crop") center/cover no-repeat;
   animation: heroZoom 22s ease-in-out infinite alternate;
 }
 @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
@@ -664,7 +666,7 @@ section { padding: 7rem 3.5rem; }
 }
 .about-img {
   width: 100%; aspect-ratio: 4/5; position: relative; z-index: 1;
-  background: url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80") center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&q=75&auto=format&fit=crop") center/cover no-repeat;
   overflow: hidden;
 }
 .about-img::after {
@@ -1180,6 +1182,19 @@ section { padding: 7rem 3.5rem; }
   .svc-panel { flex: 0 0 90vw; height: 380px; }
 }
 </style>
+
+<style>
+/* ===== PAGE TRANSITION ===== */
+#page-transition {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #12100E;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+#page-transition.fade-out { opacity: 1; pointer-events: all; }
+body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2,1); }
+@keyframes pageIn { to { opacity: 1; } }
+</style>
 </head>
 <body>
 
@@ -1319,8 +1334,8 @@ section { padding: 7rem 3.5rem; }
   <div class="svc-scroll-wrapper">
     <div class="svc-scroll-track" id="svcTrack">
 
-      <div class="svc-panel" onclick="window.location.href='hair-services'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Hair Service"/>
+      <div class="svc-panel" onclick="navigateTo('hair-services')" style="cursor:pointer;">
+        <img loading="eager" fetchpriority="high" decoding="async" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&q=75&auto=format&fit=crop" alt="Hair Service"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Hair<br>Service</div>
@@ -1328,8 +1343,8 @@ section { padding: 7rem 3.5rem; }
         </div>
       </div>
 
-      <div class="svc-panel" onclick="window.location.href='styling-service'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80" alt="Styling"/>
+      <div class="svc-panel" onclick="navigateTo('styling-service')" style="cursor:pointer;">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=700&q=75&auto=format&fit=crop" alt="Styling"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Styling</div>
@@ -1337,8 +1352,8 @@ section { padding: 7rem 3.5rem; }
         </div>
       </div>
 
-      <div class="svc-panel" onclick="window.location.href='color-services'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt="Color"/>
+      <div class="svc-panel" onclick="navigateTo('color-services')" style="cursor:pointer;">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=75&auto=format&fit=crop" alt="Color"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Color</div>
@@ -1346,8 +1361,8 @@ section { padding: 7rem 3.5rem; }
         </div>
       </div>
 
-      <div class="svc-panel" onclick="window.location.href='mani-pedi'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Meni-Pedi"/>
+      <div class="svc-panel" onclick="navigateTo('mani-pedi')" style="cursor:pointer;">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=75&auto=format&fit=crop" alt="Meni-Pedi"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Meni-Pedi</div>
@@ -1355,8 +1370,8 @@ section { padding: 7rem 3.5rem; }
         </div>
       </div>
 
-      <div class="svc-panel" onclick="window.location.href='skincare'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" alt="Skincare"/>
+      <div class="svc-panel" onclick="navigateTo('skincare')" style="cursor:pointer;">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=75&auto=format&fit=crop" alt="Skincare"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Skincare</div>
@@ -1364,8 +1379,8 @@ section { padding: 7rem 3.5rem; }
         </div>
       </div>
 
-      <div class="svc-panel" onclick="window.location.href='massage-body'" style="cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80" alt="Massage and Body"/>
+      <div class="svc-panel" onclick="navigateTo('massage-body')" style="cursor:pointer;">
+        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=700&q=75&auto=format&fit=crop" alt="Massage and Body"/>
         <div class="svc-panel-overlay"></div>
         <div class="svc-panel-content">
           <div class="svc-panel-title">Massage<br>&amp; Body</div>
@@ -2200,7 +2215,7 @@ section { padding: 7rem 3.5rem; }
   position: absolute; inset: 0;
   background:
     linear-gradient(160deg, rgba(18,16,14,0.3) 0%, rgba(139,0,0,0.45) 50%, rgba(18,16,14,0.85) 100%),
-    url("https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80") center/cover no-repeat;
+    url("https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=75&auto=format&fit=crop") center/cover no-repeat;
 }
 .popup-left-content {
   position: relative; z-index: 1; padding: 2.5rem;
@@ -2665,6 +2680,50 @@ if (di) di.setAttribute('min', new Date().toISOString().split('T')[0]);
     const x = e.pageX - reelsTrack.offsetLeft;
     reelsTrack.scrollLeft = scrollLeft - (x - startX) * 1.5;
   });
+})();
+</script>
+
+<div id="page-transition"></div>
+<script>
+// ─── PAGE TRANSITION ───
+(function() {
+  var overlay = document.getElementById('page-transition');
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') ||
+        href.startsWith('tel') || href.startsWith('mailto') ||
+        href === '/' || a.target === '_blank') return;
+    e.preventDefault();
+    sessionStorage.setItem('scrollPos', window.scrollY);
+    overlay.classList.add('fade-out');
+    setTimeout(function() { window.location.href = href; }, 320);
+  });
+  // onclick panels — intercept window.location assignments via history
+  function navigateTo(href) {
+    sessionStorage.setItem('scrollPos', window.scrollY);
+    var overlay = document.getElementById('page-transition');
+    overlay.classList.add('fade-out');
+    setTimeout(function() { window.location.href = href; }, 320);
+  }
+  window.navigateTo = navigateTo;
+})();
+
+// ─── PREFETCH ALL SERVICE PAGES ───
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  var pages = ['hair-services', 'styling-service', 'color-services', 'mani-pedi', 'skincare', 'massage-body', 'waxing-services', 'threading'];
+  // Prefetch after page is idle
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function() {
+      pages.forEach(function(p) {
+        var link = document.createElement('link');
+        link.rel = 'prefetch'; link.href = '/' + p;
+        document.head.appendChild(link);
+      });
+    });
+  }
 })();
 </script>
 </body>
