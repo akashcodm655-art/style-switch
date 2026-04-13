@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/hair-services", "dest": "/hair-services.html" },
+    { "src": "/styling-service", "dest": "/styling-service.html" },
+    { "src": "/color-services", "dest": "/color-services.html" },
+    { "src": "/mani-pedi", "dest": "/mani-pedi.html" },
+    { "src": "/skincare", "dest": "/skincare.html" },
+    { "src": "/massage-body", "dest": "/massage-body.html" },
+    { "src": "/waxing-services", "dest": "/waxing-services.html" },
+    { "src": "/threading", "dest": "/threading.html" }
+  ]
+}
