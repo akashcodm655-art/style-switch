@@ -2331,17 +2331,47 @@ section { padding: 7rem 3.5rem; }
 <script>
 // ─── PRELOADER ───
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('preloader').classList.add('hidden');
-    // Show popup after preloader finishes
+  const isReturn = sessionStorage.getItem('visited');
+
+  if (isReturn) {
+    // Skip preloader instantly
+    const preloader = document.getElementById('preloader');
+    preloader.style.transition = 'none';
+    preloader.classList.add('hidden');
+
+    // Restore scroll position
+    const savedScroll = sessionStorage.getItem('scrollPos');
+    if (savedScroll) {
+      window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
+      sessionStorage.removeItem('scrollPos');
+    }
+  } else {
+    // First visit — show preloader then popup
+    sessionStorage.setItem('visited', '1');
     setTimeout(() => {
-      document.getElementById('bookingPopup').classList.add('active');
-      openPopupCursor();
-      // Set min date for popup date input
-      const pd = document.getElementById('popup-date');
-      if (pd) pd.setAttribute('min', new Date().toISOString().split('T')[0]);
-    }, 400);
-  }, 2200);
+      document.getElementById('preloader').classList.add('hidden');
+      // Show popup after preloader finishes
+      setTimeout(() => {
+        document.getElementById('bookingPopup').classList.add('active');
+        openPopupCursor();
+        // Set min date for popup date input
+        const pd = document.getElementById('popup-date');
+        if (pd) pd.setAttribute('min', new Date().toISOString().split('T')[0]);
+      }, 400);
+    }, 2200);
+  }
+});
+
+// ─── SAVE SCROLL POSITION before leaving to internal pages ───
+document.addEventListener('click', function(e) {
+  const anchor = e.target.closest('a');
+  if (!anchor) return;
+  const href = anchor.getAttribute('href');
+  if (!href) return;
+  // Save scroll only for internal page links (not #hash, not external)
+  if (!href.startsWith('http') && !href.startsWith('#') && !href.startsWith('tel') && !href.startsWith('mailto') && href !== '/') {
+    sessionStorage.setItem('scrollPos', window.scrollY);
+  }
 });
 
 // ─── POPUP CONTROLS ───
