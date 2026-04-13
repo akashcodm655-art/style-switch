@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mani-Pedi — Style Switch Family Salon · Kharghar</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2312100E'/%3E%3Ctext x='32' y='22' font-family='Georgia%2C serif' font-size='11' font-weight='400' fill='%23F5F0E8' text-anchor='middle' letter-spacing='1'%3EStyle%3C/text%3E%3Ctext x='32' y='36' font-family='Georgia%2C serif' font-size='11' font-style='italic' fill='%23C9A84C' text-anchor='middle' letter-spacing='1'%3ESwitch%3C/text%3E%3Crect x='16' y='41' width='32' height='1' fill='%23C9A84C' opacity='0.6'/%3E%3Ctext x='32' y='52' font-family='Georgia%2C serif' font-size='6' fill='%23C9A84C' text-anchor='middle' letter-spacing='2' opacity='0.8'%3ESALON%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/></noscript>
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --ivory:      #F5F0E8;
+  --ivory-dark: #EDE5D4;
+  --gold:       #C9A84C;
+  --gold-light: #E4C97A;
+  --gold-pale:  #F7EDD0;
+  --obsidian:   #12100E;
+  --obsidian2:  #1C1916;
+  --obsidian3:  #251F1A;
+  --crimson:    #8B0000;
+  --muted:      #7D6B58;
+  --muted2:     #A8927A;
+  --white:      #ffffff;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans:  "DM Sans", sans-serif;
+  --font-caps:  "Cinzel", serif;
+  --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body { font-family: var(--font-sans); background: var(--ivory); color: var(--obsidian); overflow-x: hidden; cursor: none; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); position: fixed; z-index: 9999;
+  pointer-events: none; transform: translate(-50%,-50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+}
+.cursor-ring {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.5);
+  position: fixed; z-index: 9998; pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s var(--ease), width 0.4s, height 0.4s, border-color 0.3s;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ===== PRELOADER ===== */
+.preloader {
+  position: fixed; inset: 0; z-index: 99999;
+  background: var(--obsidian);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.8s var(--ease), visibility 0.8s;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader-logo {
+  font-family: var(--font-serif); font-size: 2.5rem; font-weight: 400;
+  color: var(--ivory); letter-spacing: 0.08em; opacity: 0;
+  animation: plFadeIn 0.8s 0.2s forwards;
+}
+.preloader-logo em { font-style: italic; color: var(--gold); }
+.preloader-line {
+  width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-top: 1.5rem; animation: plLine 1.2s 0.5s forwards var(--ease-out);
+}
+.preloader-sub {
+  font-family: var(--font-caps); font-size: 0.55rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--gold); opacity: 0;
+  animation: plFadeIn 0.6s 1s forwards; margin-top: 1rem;
+}
+@keyframes plFadeIn { to { opacity: 1; } }
+@keyframes plLine   { to { width: 200px; } }
+
+/* ===== PROGRESS BAR ===== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9000;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.75rem 3.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.5s var(--ease);
+}
+.nav.scrolled {
+  background: rgba(18,16,14,0.96);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 3.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.nav-logo-wrap { display: flex; flex-direction: column; gap: 0.1rem; }
+.nav-logo-name {
+  font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500;
+  color: var(--white); letter-spacing: 0.04em; line-height: 1;
+}
+.nav-logo-sub {
+  font-family: var(--font-caps); font-size: 0.48rem; font-weight: 400;
+  letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===== PAGE HERO ===== */
+.page-hero {
+  min-height: 60vh; position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--obsidian);
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(155deg, rgba(18,16,14,0.87) 0%, rgba(139,0,0,0.28) 50%, rgba(18,16,14,0.93) 100%),
+    url("https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1200&q=75&auto=format&fit=crop") center/cover no-repeat;
+  animation: heroZoom 22s ease-in-out infinite alternate;
+}
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.page-hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(12,10,8,0.6) 100%);
+}
+.page-hero-grain {
+  position: absolute; inset: 0; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+.hero-corner { position: absolute; width: 80px; height: 80px; }
+.hero-corner.tl { top: 5rem; left: 3rem; border-top: 1px solid rgba(201,168,76,0.4); border-left: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.tr { top: 5rem; right: 3rem; border-top: 1px solid rgba(201,168,76,0.4); border-right: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.bl { bottom: 3rem; left: 3rem; border-bottom: 1px solid rgba(201,168,76,0.4); border-left: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.br { bottom: 3rem; right: 3rem; border-bottom: 1px solid rgba(201,168,76,0.4); border-right: 1px solid rgba(201,168,76,0.4); }
+.page-hero-content {
+  position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 900px;
+}
+.hero-eyebrow {
+  font-family: var(--font-caps); font-size: 0.6rem; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--gold); opacity: 0; animation: fadeUp 0.9s 0.3s forwards;
+  margin-bottom: 1.5rem; display: block;
+}
+.hero-headline {
+  font-family: var(--font-serif); font-size: clamp(2.8rem, 7vw, 6.5rem);
+  font-weight: 400; line-height: 1.05; color: var(--white);
+  opacity: 0; animation: fadeUp 0.9s 0.55s forwards; margin-bottom: 0.5rem;
+}
+.hero-headline em { font-style: italic; color: var(--gold-light); font-weight: 300; }
+.hero-divider {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto; animation: expandLine 1s 1s forwards var(--ease-out);
+}
+@keyframes expandLine { to { width: 120px; } }
+.hero-tagline {
+  font-family: var(--font-caps); font-size: 0.65rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(245,240,232,0.45); opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== MARQUEE STRIP ===== */
+.marquee-strip {
+  background: var(--gold); padding: 0.85rem 0; overflow: hidden; position: relative;
+}
+.marquee-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: marqueeScroll 28s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--obsidian);
+  padding: 0 2.5rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.marquee-sep { opacity: 0.5; }
+@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ===== SHARED ===== */
+.container { max-width: 1260px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+  font-weight: 400; line-height: 1.1;
+}
+.section-title.light { color: var(--ivory); }
+.gold-rule { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; }
+.gold-rule::before, .gold-rule::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+}
+.gold-rule::before { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.4)); }
+.gold-rule-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal, .reveal-left, .reveal-right {
+  opacity: 0; transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal       { transform: translateY(45px); }
+.reveal-left  { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* ===== MANI-PEDI SECTION ===== */
+.mani-pedi-section { padding: 7rem 3.5rem; background: var(--obsidian); }
+
+.mani-pedi-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+
+/* Image */
+.mp-img-wrap { position: relative; overflow: hidden; }
+.mp-img-frame {
+  position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+  border: 1px solid rgba(201,168,76,0.15); z-index: 0; pointer-events: none;
+}
+.mp-img-wrap img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  position: relative; z-index: 1;
+  filter: brightness(0.82) saturate(0.85);
+  transition: transform 0.7s var(--ease), filter 0.5s;
+}
+.mp-img-wrap:hover img { transform: scale(1.04); filter: brightness(0.92) saturate(1); }
+.mp-img-badge {
+  position: absolute; bottom: -16px; right: -16px; z-index: 2;
+  background: var(--gold); padding: 0.9rem 1.4rem; text-align: center;
+}
+.mp-img-badge span {
+  display: block; font-family: var(--font-caps); font-size: 0.5rem;
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--obsidian);
+}
+.mp-img-badge .badge-italic {
+  font-size: 0.65rem; margin-top: 0.15rem;
+  font-family: var(--font-serif); font-style: italic; color: var(--obsidian);
+}
+
+/* Content */
+.mp-content .section-title.light em { font-style: italic; color: var(--gold-light); }
+.mp-summary {
+  font-size: 0.9rem; font-weight: 300; line-height: 2.0;
+  color: rgba(245,240,232,0.5); margin: 1.25rem 0 2rem;
+}
+
+/* Two-column list for manicure / pedicure side by side */
+.mp-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.mp-col-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding-bottom: 0.6rem; margin-bottom: 0.5rem;
+}
+
+/* Service list */
+.service-list { display: flex; flex-direction: column; }
+.service-list-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.85rem 0; border-bottom: 1px solid rgba(201,168,76,0.08);
+  transition: all 0.3s var(--ease); cursor: default;
+}
+.service-list-item:last-child { border-bottom: none; }
+.service-list-item:hover { padding-left: 0.5rem; }
+.service-list-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0; transition: transform 0.3s;
+}
+.service-list-item:hover .service-list-diamond { transform: rotate(45deg) scale(1.4); }
+.service-list-name {
+  font-size: 0.86rem; font-weight: 300; letter-spacing: 0.04em;
+  color: rgba(245,240,232,0.7);
+}
+
+/* ===== CONTACT / FIND US ===== */
+.contact { background: var(--obsidian2); position: relative; padding: 7rem 3.5rem; }
+.contact::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.08), transparent 60%);
+  pointer-events: none;
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.contact-detail { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2.5rem; }
+.contact-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(201,168,76,0.5);
+}
+.contact-value { font-size: 0.95rem; font-weight: 300; color: rgba(245,240,232,0.75); line-height: 1.6; }
+.contact-value a { color: var(--gold-light); transition: color 0.3s; }
+.contact-value a:hover { color: var(--gold); }
+.hours-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 2rem; }
+.hours-day { font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.hours-time { font-size: 0.82rem; font-weight: 300; color: rgba(245,240,232,0.55); }
+.social-links { display: flex; gap: 0.75rem; margin-top: 2rem; }
+.social-link {
+  width: 42px; height: 42px; border: 1px solid rgba(201,168,76,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,240,232,0.4); transition: all 0.3s var(--ease); cursor: none;
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+.map-wrap { position: relative; }
+.map-wrap iframe { width: 100%; height: 420px; border: none; filter: grayscale(30%) brightness(0.9); display: block; }
+.map-label {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem;
+  background: rgba(18,16,14,0.92); font-family: var(--font-caps); font-size: 0.52rem;
+  letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,240,232,0.55);
+}
+
+/* ===== FOOTER ===== */
+.footer { background: var(--obsidian); border-top: 1px solid rgba(201,168,76,0.12); padding: 3.5rem; }
+.footer-inner { max-width: 1260px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+.footer-logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); }
+.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a { font-family: var(--font-caps); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.3); transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(245,240,232,0.18); }
+
+/* ===== WHATSAPP ===== */
+.whatsapp-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 58px; height: 58px; background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s; cursor: none;
+}
+.whatsapp-btn:hover { transform: scale(1.12) translateY(-2px); box-shadow: 0 8px 35px rgba(37,211,102,0.55); }
+.whatsapp-btn svg { width: 30px; height: 30px; fill: white; }
+.whatsapp-pulse {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.35);
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+@keyframes waPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.18); opacity: 0; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .mani-pedi-layout, .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .mp-img-frame { display: none; }
+  .mp-img-badge { bottom: 1rem; right: 1rem; }
+}
+@media (max-width: 768px) {
+  .nav { padding: 1.2rem 1.5rem; }
+  .nav.scrolled { padding: 0.9rem 1.5rem; }
+  .mani-pedi-section, .contact { padding: 4.5rem 1.5rem; }
+  .hero-corner { display: none; }
+  .mp-columns { grid-template-columns: 1fr; gap: 0; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+.nav-back {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(245,240,232,0.5);
+  transition: color 0.3s; display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { width: 14px; height: 14px; }
+</style>
+
+<style>
+/* ===== PAGE TRANSITION ===== */
+#page-transition {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #12100E;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+#page-transition.fade-out { opacity: 1; pointer-events: all; }
+body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2,1); }
+@keyframes pageIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">Style <em>Switch</em></div>
+  <div class="preloader-line"></div>
+  <div class="preloader-sub">Mani-Pedi · Family Salon · Kharghar</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <a href="/" class="nav-logo-wrap">
+    <span class="nav-logo-name">Style Switch</span>
+    <span class="nav-logo-sub">Family Salon · Kharghar</span>
+  </a>
+  <a href="/#services" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+    All Services
+  </a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero" id="home">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-vignette"></div>
+  <div class="page-hero-grain"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+  <div class="page-hero-content">
+    <span class="hero-eyebrow">Style Switch Family Salon</span>
+    <h1 class="hero-headline">Mani <em>&amp; Pedi</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Polish · Perfect · Pamper</p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Manicure <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Pedicure <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Nail Polish <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Classic Mani-Pedi <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Advance Mani-Pedi <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Premium Nail Care <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Nail File & Shape <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Manicure <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Pedicure <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Nail Polish <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Classic Mani-Pedi <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Advance Mani-Pedi <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Premium Nail Care <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Nail File & Shape <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- MANI-PEDI SECTION -->
+<section class="mani-pedi-section" id="mani-pedi">
+  <div class="container">
+    <div class="mani-pedi-layout">
+
+      <!-- IMAGE -->
+      <div class="mp-img-wrap reveal-left">
+        <div class="mp-img-frame"></div>
+        <img
+          src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80"
+          alt="Manicure and pedicure at Style Switch Salon"
+          loading="lazy"
+        />
+        <div class="mp-img-badge">
+          <span>Luxury</span>
+          <span class="badge-italic">Nail Care</span>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="mp-content reveal-right">
+        <span class="section-eyebrow">Nail Artistry</span>
+        <h2 class="section-title light">Manicure &amp; <em>Pedicure</em></h2>
+        <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+        <p class="mp-summary">
+          Treat your hands and feet to a moment of pure indulgence — from a clean shape and polish to a full premium ritual, every service is performed with precision and care.
+        </p>
+
+        <!-- Two-column list: Manicure | Pedicure -->
+        <div class="mp-columns">
+
+          <!-- MANICURE -->
+          <div>
+            <div class="mp-col-label reveal delay-1">Manicure</div>
+            <ul class="service-list">
+              <li class="service-list-item reveal delay-1">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Nails Cut</span>
+              </li>
+              <li class="service-list-item reveal delay-2">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">File</span>
+              </li>
+              <li class="service-list-item reveal delay-3">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Polish</span>
+              </li>
+              <li class="service-list-item reveal delay-4">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Classic</span>
+              </li>
+              <li class="service-list-item reveal delay-5">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Advance</span>
+              </li>
+              <li class="service-list-item reveal delay-6">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Premium</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PEDICURE -->
+          <div>
+            <div class="mp-col-label reveal delay-2">Pedicure</div>
+            <ul class="service-list">
+              <li class="service-list-item reveal delay-1">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Nails Cut</span>
+              </li>
+              <li class="service-list-item reveal delay-2">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">File</span>
+              </li>
+              <li class="service-list-item reveal delay-3">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Polish</span>
+              </li>
+              <li class="service-list-item reveal delay-4">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Classic</span>
+              </li>
+              <li class="service-list-item reveal delay-5">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Advance</span>
+              </li>
+              <li class="service-list-item reveal delay-6">
+                <div class="service-list-diamond"></div>
+                <span class="service-list-name">Premium</span>
+              </li>
+            </ul>
+          </div>
+
+        </div><!-- /.mp-columns -->
+      </div><!-- /.mp-content -->
+
+    </div><!-- /.mani-pedi-layout -->
+  </div>
+</section>
+
+<!-- CONTACT / FIND US -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="section-eyebrow">Find Us</span>
+      <h2 class="section-title light">Visit the <em style="font-style:italic;color:var(--gold-light);">Salon</em></h2>
+      <div class="gold-rule" style="max-width:400px;margin:1.5rem auto;"><div class="gold-rule-diamond"></div></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="contact-detail">
+          <div class="contact-label">Address</div>
+          <div class="contact-value">Sector 20, Kharghar,<br>Navi Mumbai — 410 210, Maharashtra</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value"><a href="tel:+919149151763">+91 91491 51763</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Opening Hours</div>
+          <div class="hours-grid">
+            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
+            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
+            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/styleswitchfamilysalon" target="_blank" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/919149151763" target="_blank" class="social-link" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="tel:+919149151763" class="social-link" aria-label="Call Us">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.23872780268!2d73.06835577384481!3d19.053238682146617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3a0b5f5a06f%3A0xb8b9f9569694721c!2sStyle%20Switch%20Family%20Salon!5e0!3m2!1sen!2sin!4v1775185634538!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Style Switch Family Salon Location"></iframe>
+          <div class="map-label">Style Switch Family Salon · Sector 20, Kharghar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Style <em>Switch</em> Family Salon</div>
+    <ul class="footer-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#mani-pedi">Mani-Pedi</a></li>
+      <li><a href="#contact">Find Us</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2025 Style Switch Family Salon. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919149151763?text=Hi!%20I%27d%20like%20to%20book%20a%20Manicure%20or%20Pedicure%20at%20Style%20Switch%20Family%20Salon."
+   target="_blank" class="whatsapp-btn" aria-label="Book via WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ─── PRELOADER ───
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 2200);
+});
+
+// ─── CUSTOM CURSOR ───
+const dot  = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+if (window.innerWidth > 768) {
+  document.addEventListener('mousemove', e => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      ring.style.width = '56px'; ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+}
+
+// ─── SCROLL PROGRESS ───
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progress.style.width = scrolled + '%';
+});
+
+// ─── NAV SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+
+<div id="page-transition"></div>
+<script>
+// ─── PAGE TRANSITION ───
+(function() {
+  var overlay = document.getElementById('page-transition');
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') ||
+        href.startsWith('tel') || href.startsWith('mailto') ||
+        a.target === '_blank') return;
+    e.preventDefault();
+    overlay.classList.add('fade-out');
+    setTimeout(function() { window.location.href = href; }, 320);
+  });
+})();
+</script>
+</body>
+</html>

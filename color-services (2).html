@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Color Services — Style Switch Family Salon</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2312100E'/%3E%3Ctext x='32' y='22' font-family='Georgia%2C serif' font-size='11' font-weight='400' fill='%23F5F0E8' text-anchor='middle' letter-spacing='1'%3EStyle%3C/text%3E%3Ctext x='32' y='36' font-family='Georgia%2C serif' font-size='11' font-style='italic' fill='%23C9A84C' text-anchor='middle' letter-spacing='1'%3ESwitch%3C/text%3E%3Crect x='16' y='41' width='32' height='1' fill='%23C9A84C' opacity='0.6'/%3E%3Ctext x='32' y='52' font-family='Georgia%2C serif' font-size='6' fill='%23C9A84C' text-anchor='middle' letter-spacing='2' opacity='0.8'%3ESALON%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/></noscript>
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --ivory:      #F5F0E8;
+  --ivory-dark: #EDE5D4;
+  --gold:       #C9A84C;
+  --gold-light: #E4C97A;
+  --gold-pale:  #F7EDD0;
+  --obsidian:   #12100E;
+  --obsidian2:  #1C1916;
+  --obsidian3:  #251F1A;
+  --crimson:    #8B0000;
+  --crimson2:   #5B0202;
+  --muted:      #7D6B58;
+  --muted2:     #A8927A;
+  --white:      #ffffff;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans:  "DM Sans", sans-serif;
+  --font-caps:  "Cinzel", serif;
+  --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body { font-family: var(--font-sans); background: var(--ivory); color: var(--obsidian); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9000;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.75rem 3.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.5s var(--ease);
+}
+.nav.scrolled {
+  background: rgba(18,16,14,0.96);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 3.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.nav-logo-wrap { display: flex; flex-direction: column; gap: 0.1rem; }
+.nav-logo-name {
+  font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500;
+  color: var(--white); letter-spacing: 0.04em; line-height: 1;
+}
+.nav-logo-sub {
+  font-family: var(--font-caps); font-size: 0.48rem; font-weight: 400;
+  letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold);
+}
+.nav-back {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(245,240,232,0.6);
+  border: 1px solid rgba(201,168,76,0.25); padding: 0.55rem 1.2rem;
+  transition: all 0.3s var(--ease);
+}
+.nav-back:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--obsidian);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(155deg, rgba(18,16,14,0.88) 0%, rgba(139,0,0,0.30) 45%, rgba(18,16,14,0.92) 100%),
+    url("https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1200&q=75&auto=format&fit=crop") center/cover no-repeat;
+  animation: heroZoom 22s ease-in-out infinite alternate;
+}
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(12,10,8,0.65) 100%);
+}
+.hero-corner { position: absolute; width: 80px; height: 80px; }
+.hero-corner.tl { top: 5rem; left: 3rem; border-top: 1px solid rgba(201,168,76,0.4); border-left: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.tr { top: 5rem; right: 3rem; border-top: 1px solid rgba(201,168,76,0.4); border-right: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.bl { bottom: 4rem; left: 3rem; border-bottom: 1px solid rgba(201,168,76,0.4); border-left: 1px solid rgba(201,168,76,0.4); }
+.hero-corner.br { bottom: 4rem; right: 3rem; border-bottom: 1px solid rgba(201,168,76,0.4); border-right: 1px solid rgba(201,168,76,0.4); }
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  padding: 2rem; max-width: 900px;
+}
+.hero-eyebrow {
+  font-family: var(--font-caps); font-size: 0.6rem; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--gold); opacity: 0; animation: fadeUp 0.9s 0.3s forwards; margin-bottom: 1.5rem; display: block;
+}
+.hero-headline {
+  font-family: var(--font-serif); font-size: clamp(3.2rem, 7vw, 6.5rem);
+  font-weight: 400; line-height: 1.05; color: var(--white);
+  opacity: 0; animation: fadeUp 0.9s 0.55s forwards; margin-bottom: 0.5rem;
+}
+.hero-headline em { font-style: italic; color: var(--gold-light); font-weight: 300; }
+.hero-divider {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto;
+  animation: expandLine 1s 1s forwards var(--ease-out);
+}
+@keyframes expandLine { to { width: 140px; } }
+.hero-tagline {
+  font-family: var(--font-caps); font-size: 0.65rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(245,240,232,0.5);
+  opacity: 0; animation: fadeUp 0.9s 0.8s forwards; margin-bottom: 2.5rem;
+}
+.hero-btns {
+  display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.9s 1s forwards;
+}
+.btn-gold {
+  background: var(--gold); color: var(--obsidian);
+  padding: 1rem 2.8rem;
+  font-family: var(--font-sans); font-size: 0.7rem;
+  font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  border: none; cursor: pointer; position: relative; overflow: hidden; display: inline-block;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.btn-gold::before {
+  content: ""; position: absolute; inset: 0; background: var(--gold-light);
+  transform: translateX(-100%); transition: transform 0.4s var(--ease);
+}
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.4); }
+.btn-gold span { position: relative; z-index: 1; }
+.btn-ghost {
+  background: transparent; color: var(--ivory);
+  padding: 1rem 2.8rem;
+  font-family: var(--font-sans); font-size: 0.7rem;
+  font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase;
+  border: 1px solid rgba(245,240,232,0.3); cursor: pointer; display: inline-block;
+  transition: all 0.35s var(--ease);
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  color: rgba(245,240,232,0.3); font-family: var(--font-caps);
+  font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+  animation: fadeIn 1s 1.8s both;
+}
+.hero-scroll-mouse {
+  width: 22px; height: 34px; border: 1px solid rgba(201,168,76,0.4); border-radius: 12px;
+  position: relative; overflow: hidden;
+}
+.hero-scroll-dot {
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); left: 50%; transform: translateX(-50%);
+  animation: scrollDot 2s ease-in-out infinite;
+}
+@keyframes scrollDot { 0%,100% { top: 6px; opacity: 1; } 80% { top: 20px; opacity: 0; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ===== MARQUEE ===== */
+.marquee-strip {
+  background: var(--gold); padding: 0.85rem 0; overflow: hidden; position: relative;
+}
+.marquee-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: marqueeScroll 26s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--obsidian);
+  padding: 0 2.5rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.marquee-sep { opacity: 0.5; }
+@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ===== SECTIONS ===== */
+section { padding: 6rem 3.5rem; }
+.container { max-width: 1220px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 400; line-height: 1.1;
+}
+.section-title.light { color: var(--ivory); }
+.gold-rule {
+  display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+}
+.gold-rule::before, .gold-rule::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+}
+.gold-rule::before { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.4)); }
+.gold-rule-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal, .reveal-left, .reveal-right, .reveal-scale {
+  opacity: 0; transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal { transform: translateY(45px); }
+.reveal-left { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-scale { transform: scale(0.94); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+  opacity: 1; transform: none;
+}
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+
+/* ===== SERVICE SECTION LAYOUT ===== */
+.svc-section {
+  background: var(--ivory);
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.svc-section.dark {
+  background: var(--obsidian2);
+}
+.svc-section.dark2 {
+  background: var(--obsidian3);
+}
+
+.svc-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  max-width: 1220px; margin: 0 auto;
+}
+.svc-inner.reverse { direction: rtl; }
+.svc-inner.reverse > * { direction: ltr; }
+
+/* Image wrapper */
+.svc-img-wrap {
+  position: relative; overflow: hidden;
+}
+.svc-img-wrap img {
+  width: 100%; height: 480px; object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.svc-img-wrap:hover img { transform: scale(1.04); }
+.svc-img-frame {
+  position: absolute; inset: 16px;
+  border: 1px solid rgba(201,168,76,0.25);
+  pointer-events: none; z-index: 1;
+}
+.svc-img-badge {
+  position: absolute; bottom: -1px; left: -1px;
+  background: var(--gold); color: var(--obsidian);
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 0.55rem 1.2rem;
+}
+.svc-img-badge.light-badge {
+  background: var(--obsidian2); color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+
+/* Text */
+.svc-text { }
+.svc-summary {
+  font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+  color: var(--muted); margin-top: 1rem; margin-bottom: 2rem;
+}
+.svc-summary.light { color: rgba(245,240,232,0.55); }
+
+/* Service list */
+.svc-list { display: flex; flex-direction: column; gap: 0; }
+.svc-list-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block;
+}
+.svc-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  transition: background 0.3s;
+}
+.svc-item:first-of-type { border-top: 1px solid rgba(201,168,76,0.1); }
+.svc-item-name {
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400;
+  color: var(--obsidian);
+}
+.svc-item-name.light { color: var(--ivory); }
+.svc-item-sub {
+  font-family: var(--font-sans); font-size: 0.75rem; font-weight: 300;
+  color: var(--muted); margin-top: 0.2rem;
+}
+.svc-item-sub.light { color: rgba(245,240,232,0.35); }
+.svc-item-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0; margin-left: 1rem;
+}
+
+/* Sub-list (short/medium/long) under a service item */
+.svc-sub-list {
+  width: 100%;
+}
+.svc-sub-list .svc-item {
+  padding: 0.8rem 0 0.8rem 1.5rem;
+  border-top: none;
+  border-bottom: 1px solid rgba(201,168,76,0.07);
+}
+.svc-sub-list .svc-item:last-child { border-bottom: 1px solid rgba(201,168,76,0.1); }
+.svc-item-name.sub-name { font-size: 0.9rem; color: var(--muted); }
+.svc-item-name.sub-name.light { color: rgba(245,240,232,0.5); }
+
+/* ===== HIGHLIGHTS NESTED ===== */
+.highlights-wrap { margin-top: 1.5rem; }
+.highlight-group { margin-bottom: 1.5rem; }
+.highlight-group-label {
+  font-family: var(--font-caps); font-size: 0.5rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: rgba(201,168,76,0.6);
+  border-left: 2px solid var(--gold); padding-left: 0.75rem;
+  margin-bottom: 0.5rem; display: block;
+}
+.highlight-sub-row {
+  display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.07);
+}
+.highlight-tag {
+  font-family: var(--font-sans); font-size: 0.72rem; font-weight: 300;
+  color: rgba(245,240,232,0.5); background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 0.3rem 0.75rem;
+  transition: all 0.3s;
+}
+.highlight-tag:hover { background: rgba(201,168,76,0.12); color: var(--gold); }
+
+/* ===== CONTACT ===== */
+.contact { background: var(--obsidian2); position: relative; }
+.contact::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.08), transparent 60%);
+  pointer-events: none;
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.contact-detail { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2.5rem; }
+.contact-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(201,168,76,0.5);
+}
+.contact-value { font-size: 0.95rem; font-weight: 300; color: rgba(245,240,232,0.75); line-height: 1.6; }
+.contact-value a { color: var(--gold-light); transition: color 0.3s; }
+.contact-value a:hover { color: var(--gold); }
+.hours-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 2rem; }
+.hours-day { font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.hours-time { font-size: 0.82rem; font-weight: 300; color: rgba(245,240,232,0.55); }
+.social-links { display: flex; gap: 0.75rem; margin-top: 2rem; }
+.social-link {
+  width: 42px; height: 42px; border: 1px solid rgba(201,168,76,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,240,232,0.4); transition: all 0.3s var(--ease); cursor: pointer;
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+.map-wrap { position: relative; }
+.map-wrap iframe { width: 100%; height: 420px; border: none; filter: grayscale(30%) brightness(0.9); display: block; }
+.map-label {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem;
+  background: rgba(18,16,14,0.92); font-family: var(--font-caps); font-size: 0.52rem;
+  letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,240,232,0.55);
+}
+
+/* ===== FOOTER ===== */
+.footer { background: var(--obsidian); border-top: 1px solid rgba(201,168,76,0.12); padding: 3.5rem; }
+.footer-inner { max-width: 1260px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+.footer-logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); }
+.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a { font-family: var(--font-caps); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.3); transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(245,240,232,0.18); }
+
+/* ===== WHATSAPP ===== */
+.whatsapp-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 58px; height: 58px; background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.whatsapp-btn:hover { transform: scale(1.12) translateY(-2px); box-shadow: 0 8px 35px rgba(37,211,102,0.55); }
+.whatsapp-btn svg { width: 30px; height: 30px; fill: white; }
+.whatsapp-pulse {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.35);
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+@keyframes waPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.18); opacity: 0; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .svc-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .svc-inner.reverse { direction: ltr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+}
+@media (max-width: 768px) {
+  .nav { padding: 1.2rem 1.5rem; }
+  .nav.scrolled { padding: 0.9rem 1.5rem; }
+  section { padding: 4.5rem 1.5rem; }
+  .hero-corner { display: none; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .svc-img-wrap img { height: 320px; }
+}
+</style>
+
+<style>
+/* ===== PAGE TRANSITION ===== */
+#page-transition {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #12100E;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+#page-transition.fade-out { opacity: 1; pointer-events: all; }
+body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2,1); }
+@keyframes pageIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <a href="/" class="nav-logo-wrap">
+    <span class="nav-logo-name">Style Switch</span>
+    <span class="nav-logo-sub">Family Salon · Kharghar</span>
+  </a>
+  <a href="/#services" class="nav-back">← Back to Services</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Style Switch Family Salon · Kharghar</span>
+    <h1 class="hero-headline">The Art of<br><em>Colour</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Bespoke Coloring · Expert Stylists · Premium Products</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold"><span>Book Appointment</span></a>
+      <a href="#coloring" class="btn-ghost">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-mouse"><div class="hero-scroll-dot"></div></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>Hair Colouring</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Balayage</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Ombré</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Global Colour</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Root Touch Up</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Highlights</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Beard & Moustache</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Hair Colouring</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Balayage</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Ombré</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Global Colour</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Root Touch Up</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Highlights</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Beard & Moustache</span><span class="marquee-sep">✦</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — COLORING
+════════════════════════════════════════════ -->
+<section class="svc-section" id="coloring" style="background:var(--ivory);">
+  <div class="svc-inner">
+    <div class="svc-img-wrap reveal-left">
+      <img loading="eager" fetchpriority="high" decoding="async" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=900&q=85" alt="Hair Colouring"/>
+      <div class="svc-img-frame"></div>
+      <div class="svc-img-badge">Colouring</div>
+    </div>
+    <div class="svc-text reveal-right">
+      <span class="section-eyebrow">Our Expertise</span>
+      <h2 class="section-title">Expert <em style="font-style:italic;color:var(--crimson);">Colouring</em></h2>
+      <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+      <p class="svc-summary">Precision colour crafted for every face — from subtle tints to bold transformations, our stylists blend artistry with premium products to give you hair that truly reflects you.</p>
+
+      <span class="svc-list-label">Services Include</span>
+      <div class="svc-list">
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Moustache Colour</div>
+            <div class="svc-item-sub">Precise, natural-looking application</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Beard Colour</div>
+            <div class="svc-item-sub">Even coverage, lasting results</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Hair Colour</div>
+            <div class="svc-item-sub">Full application with premium colour range</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — BALAYAGE / OMBRÉ
+════════════════════════════════════════════ -->
+<section class="svc-section dark" id="balayage">
+  <div class="svc-inner reverse">
+    <div class="svc-img-wrap reveal-right">
+      <img loading="lazy" decoding="async" src="color-services-img1.jpg" alt="Balayage Ombre"/>
+      <div class="svc-img-frame"></div>
+      <div class="svc-img-badge light-badge">Balayage / Ombré</div>
+    </div>
+    <div class="svc-text reveal-left">
+      <span class="section-eyebrow">Signature Technique</span>
+      <h2 class="section-title light">Balayage &amp; <em style="font-style:italic;color:var(--gold-light);">Ombré</em></h2>
+      <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+      <p class="svc-summary light">Sun-kissed, seamless transitions painted freehand for a lived-in, effortlessly chic look. Our colourists tailor every sweep to complement your natural texture and skin tone.</p>
+
+      <span class="svc-list-label">Length Options</span>
+      <div class="svc-list">
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name light">Below Shoulder</div>
+            <div class="svc-item-sub light">Collar bone to shoulder-blade length</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name light">Mid Waist</div>
+            <div class="svc-item-sub light">Mid-back to waist length</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name light">Below Waist</div>
+            <div class="svc-item-sub light">Full length, hip and beyond</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — GLOBAL HAIR COLOUR
+════════════════════════════════════════════ -->
+<section class="svc-section" id="global" style="background:var(--ivory);">
+  <div class="svc-inner">
+    <div class="svc-img-wrap reveal-left">
+      <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=85" alt="Global Hair Colour"/>
+      <div class="svc-img-frame"></div>
+      <div class="svc-img-badge">Global Colour</div>
+    </div>
+    <div class="svc-text reveal-right">
+      <span class="section-eyebrow">Full Coverage</span>
+      <h2 class="section-title">Global Hair <em style="font-style:italic;color:var(--crimson);">Colour</em></h2>
+      <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+      <p class="svc-summary">All-over colour application for a rich, uniform finish from root to tip. Perfect for covering greys, refreshing your base, or going bold with a brand-new shade.</p>
+
+      <span class="svc-list-label">Root Touch Up — by Length</span>
+      <div class="svc-list">
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Short Hair</div>
+            <div class="svc-item-sub">Ear length and above</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Medium Hair</div>
+            <div class="svc-item-sub">Chin to shoulder length</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+        <div class="svc-item">
+          <div>
+            <div class="svc-item-name">Long Hair</div>
+            <div class="svc-item-sub">Below shoulder and beyond</div>
+          </div>
+          <div class="svc-item-diamond"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — HIGHLIGHTS
+════════════════════════════════════════════ -->
+<section class="svc-section dark2" id="highlights">
+  <div class="svc-inner reverse">
+    <div class="svc-img-wrap reveal-right">
+      <img loading="lazy" decoding="async" src="color-services-img2.jpg" alt="Hair Highlights"/>
+      <div class="svc-img-frame"></div>
+      <div class="svc-img-badge light-badge">Highlights</div>
+    </div>
+    <div class="svc-text reveal-left">
+      <span class="section-eyebrow">Dimension & Depth</span>
+      <h2 class="section-title light">Luminous <em style="font-style:italic;color:var(--gold-light);">Highlights</em></h2>
+      <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+      <p class="svc-summary light">Strategic light-catching strands that add dimension and brilliance to your hair. Whether classic foils or freehand painted, every highlight is placed to frame your features beautifully.</p>
+
+      <div class="highlights-wrap">
+        <span class="svc-list-label">1 Streak — by Length</span>
+        <div class="highlight-group">
+          <div class="highlight-sub-row">
+            <span class="highlight-tag">Short</span>
+            <span class="highlight-tag">Medium</span>
+            <span class="highlight-tag">Long</span>
+          </div>
+        </div>
+
+        <div class="svc-list" style="margin-top:1rem;">
+          <div class="svc-item">
+            <div>
+              <div class="svc-item-name light">Short Hair Highlights</div>
+              <div class="svc-item-sub light">Pixie to ear length</div>
+            </div>
+            <div class="svc-item-diamond"></div>
+          </div>
+          <div class="svc-item">
+            <div>
+              <div class="svc-item-name light">Medium Hair Highlights</div>
+              <div class="svc-item-sub light">Chin to collarbone length</div>
+            </div>
+            <div class="svc-item-diamond"></div>
+          </div>
+          <div class="svc-item">
+            <div>
+              <div class="svc-item-name light">Long Hair Highlights</div>
+              <div class="svc-item-sub light">Shoulder length and beyond</div>
+            </div>
+            <div class="svc-item-diamond"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     FIND US / CONTACT
+════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="section-eyebrow">Find Us</span>
+      <h2 class="section-title light">Visit the <em style="font-style:italic;color:var(--gold-light);">Salon</em></h2>
+      <div class="gold-rule" style="max-width:400px;margin:1.5rem auto;"><div class="gold-rule-diamond"></div></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="contact-detail">
+          <div class="contact-label">Address</div>
+          <div class="contact-value">Sector 20, Kharghar,<br>Navi Mumbai — 410 210, Maharashtra</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value"><a href="tel:+919149151763">+91 91491 51763</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Opening Hours</div>
+          <div class="hours-grid">
+            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
+            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
+            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/styleswitchfamilysalon" target="_blank" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/919149151763" target="_blank" class="social-link" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="tel:+919149151763" class="social-link" aria-label="Call Us">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.23872780268!2d73.06835577384481!3d19.053238682146617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3a0b5f5a06f%3A0xb8b9f9569694721c!2sStyle%20Switch%20Family%20Salon!5e0!3m2!1sen!2sin!4v1775185634538!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Style Switch Family Salon Location"></iframe>
+          <div class="map-label">Style Switch Family Salon · Sector 20, Kharghar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Style <em>Switch</em> Family Salon</div>
+    <ul class="footer-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#gallery">Gallery</a></li>
+      <li><a href="#contact">Book Now</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2025 Style Switch Family Salon. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919149151763?text=Hi!%20I%27d%20like%20to%20book%20a%20colour%20appointment%20at%20Style%20Switch%20Family%20Salon."
+   target="_blank" class="whatsapp-btn" aria-label="Book via WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ─── SCROLL PROGRESS ───
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progress.style.width = scrolled + '%';
+});
+
+// ─── NAV SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+</script>
+
+<div id="page-transition"></div>
+<script>
+// ─── PAGE TRANSITION ───
+(function() {
+  var overlay = document.getElementById('page-transition');
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') ||
+        href.startsWith('tel') || href.startsWith('mailto') ||
+        a.target === '_blank') return;
+    e.preventDefault();
+    overlay.classList.add('fade-out');
+    setTimeout(function() { window.location.href = href; }, 320);
+  });
+})();
+</script>
+</body>
+</html>

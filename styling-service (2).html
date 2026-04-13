@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Styling — Style Switch Family Salon</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2312100E'/%3E%3Ctext x='32' y='22' font-family='Georgia%2C serif' font-size='11' font-weight='400' fill='%23F5F0E8' text-anchor='middle' letter-spacing='1'%3EStyle%3C/text%3E%3Ctext x='32' y='36' font-family='Georgia%2C serif' font-size='11' font-style='italic' fill='%23C9A84C' text-anchor='middle' letter-spacing='1'%3ESwitch%3C/text%3E%3Crect x='16' y='41' width='32' height='1' fill='%23C9A84C' opacity='0.6'/%3E%3Ctext x='32' y='52' font-family='Georgia%2C serif' font-size='6' fill='%23C9A84C' text-anchor='middle' letter-spacing='2' opacity='0.8'%3ESALON%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/></noscript>
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --ivory:      #F5F0E8;
+  --ivory-dark: #EDE5D4;
+  --gold:       #C9A84C;
+  --gold-light: #E4C97A;
+  --gold-pale:  #F7EDD0;
+  --obsidian:   #12100E;
+  --obsidian2:  #1C1916;
+  --obsidian3:  #251F1A;
+  --crimson:    #8B0000;
+  --crimson2:   #5B0202;
+  --muted:      #7D6B58;
+  --muted2:     #A8927A;
+  --white:      #ffffff;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans:  "DM Sans", sans-serif;
+  --font-caps:  "Cinzel", serif;
+  --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body { font-family: var(--font-sans); background: var(--ivory); color: var(--obsidian); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9000;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.75rem 3.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.5s var(--ease);
+}
+.nav.scrolled {
+  background: rgba(18,16,14,0.96);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 3.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.nav-logo-wrap { display: flex; flex-direction: column; gap: 0.1rem; }
+.nav-logo-name {
+  font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500;
+  color: var(--white); letter-spacing: 0.04em; line-height: 1;
+}
+.nav-logo-sub {
+  font-family: var(--font-caps); font-size: 0.48rem; font-weight: 400;
+  letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold);
+}
+.nav-back {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(245,240,232,0.5);
+  transition: color 0.3s; display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ===== HERO — SERVICE BANNER ===== */
+.service-hero {
+  min-height: 72vh; position: relative; display: flex; align-items: flex-end;
+  overflow: hidden; background: var(--obsidian);
+}
+.service-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(170deg, rgba(18,16,14,0.55) 0%, rgba(18,16,14,0.85) 60%, rgba(18,16,14,0.98) 100%),
+    url("https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1200&q=75&auto=format&fit=crop") center/cover no-repeat;
+  animation: heroZoom 22s ease-in-out infinite alternate;
+}
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.service-hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(12,10,8,0.6) 100%);
+}
+.service-hero-grain {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+.hero-corner { position: absolute; width: 70px; height: 70px; }
+.hero-corner.tl { top: 5rem; left: 3rem; border-top: 1px solid rgba(201,168,76,0.35); border-left: 1px solid rgba(201,168,76,0.35); }
+.hero-corner.tr { top: 5rem; right: 3rem; border-top: 1px solid rgba(201,168,76,0.35); border-right: 1px solid rgba(201,168,76,0.35); }
+
+.service-hero-content {
+  position: relative; z-index: 2;
+  padding: 0 3.5rem 5.5rem;
+  max-width: 1260px; width: 100%; margin: 0 auto;
+}
+.service-hero-breadcrumb {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: rgba(201,168,76,0.55);
+  margin-bottom: 1.2rem;
+  opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+}
+.service-hero-title {
+  font-family: var(--font-serif); font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 400; line-height: 1.0; color: var(--white);
+  opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+}
+.service-hero-title em { font-style: italic; color: var(--gold-light); font-weight: 300; }
+.service-hero-divider {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 1.75rem 0;
+  animation: expandLineLeft 1s 0.9s forwards var(--ease-out);
+}
+@keyframes expandLineLeft { to { width: 140px; } }
+.service-hero-tagline {
+  font-family: var(--font-caps); font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+  opacity: 0; animation: fadeUp 0.9s 0.75s forwards;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== MARQUEE STRIP ===== */
+.marquee-strip {
+  background: var(--gold); padding: 0.85rem 0; overflow: hidden; position: relative;
+}
+.marquee-track {
+  display: flex; gap: 0; white-space: nowrap;
+  animation: marqueeScroll 26s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--obsidian);
+  padding: 0 2.5rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.marquee-sep { opacity: 0.5; }
+@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ===== SECTIONS ===== */
+section { padding: 7rem 3.5rem; }
+.container { max-width: 1260px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+  font-weight: 400; line-height: 1.1;
+}
+.section-title.light { color: var(--ivory); }
+.gold-rule {
+  display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+}
+.gold-rule::before, .gold-rule::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+}
+.gold-rule::before { background: linear-gradient(270deg, transparent, rgba(201,168,76,0.4)); }
+.gold-rule-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal, .reveal-left, .reveal-right {
+  opacity: 0; transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal { transform: translateY(40px); }
+.reveal-left { transform: translateX(-45px); }
+.reveal-right { transform: translateX(45px); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible {
+  opacity: 1; transform: none;
+}
+.delay-1 { transition-delay: 0.12s !important; }
+.delay-2 { transition-delay: 0.24s !important; }
+.delay-3 { transition-delay: 0.36s !important; }
+.delay-4 { transition-delay: 0.48s !important; }
+.delay-5 { transition-delay: 0.60s !important; }
+
+/* ===== SERVICE DETAIL SECTION ===== */
+.service-detail {
+  background: var(--ivory);
+}
+.service-detail-grid {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 6rem; align-items: center;
+}
+.service-detail-img-wrap {
+  position: relative;
+}
+.service-detail-img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  display: block;
+}
+.service-detail-img-frame {
+  position: absolute; inset: -1.2rem; border: 1px solid rgba(201,168,76,0.25);
+  pointer-events: none; z-index: 0;
+}
+.service-detail-img-badge {
+  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  width: 110px; height: 110px;
+  background: var(--gold); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.2rem; z-index: 2;
+}
+.badge-num {
+  font-family: var(--font-serif); font-size: 2.2rem; font-weight: 400; color: var(--obsidian); line-height: 1;
+}
+.badge-label {
+  font-family: var(--font-caps); font-size: 0.42rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--obsidian); opacity: 0.7; text-align: center;
+}
+.service-detail-text { position: relative; z-index: 1; }
+.service-summary-text {
+  font-size: 1.05rem; font-weight: 300; line-height: 1.85; color: var(--muted);
+  margin-top: 1rem;
+}
+
+/* ===== SERVICE LIST ===== */
+.service-list-section {
+  background: var(--obsidian2);
+  position: relative;
+}
+.service-list-section::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(139,0,0,0.07), transparent 60%);
+  pointer-events: none;
+}
+.service-list-header {
+  text-align: center; margin-bottom: 4rem;
+}
+.service-list-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.1);
+  max-width: 900px; margin: 0 auto;
+}
+.service-item {
+  background: var(--obsidian2);
+  padding: 2.8rem 3rem;
+  display: flex; align-items: flex-start; gap: 1.8rem;
+  transition: background 0.35s var(--ease);
+  position: relative; overflow: hidden;
+}
+.service-item::before {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.service-item:hover { background: rgba(201,168,76,0.04); }
+.service-item:hover::before { transform: scaleX(1); }
+.service-item-num {
+  font-family: var(--font-serif); font-size: 2.5rem; font-weight: 400;
+  color: rgba(201,168,76,0.18); line-height: 1; flex-shrink: 0;
+  min-width: 2.5rem; transition: color 0.3s;
+}
+.service-item:hover .service-item-num { color: rgba(201,168,76,0.5); }
+.service-item-body { flex: 1; }
+.service-item-name {
+  font-family: var(--font-serif); font-size: 1.25rem; font-weight: 400;
+  color: var(--ivory); line-height: 1.2; margin-bottom: 0.5rem;
+}
+.service-item-desc {
+  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+  color: rgba(245,240,232,0.4); letter-spacing: 0.02em; line-height: 1.5;
+}
+.service-item-diamond {
+  width: 5px; height: 5px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0; margin-top: 0.55rem;
+  opacity: 0; transition: opacity 0.3s;
+}
+.service-item:hover .service-item-diamond { opacity: 1; }
+
+.service-cta-wrap {
+  text-align: center; margin-top: 3.5rem;
+}
+.btn-gold {
+  background: var(--gold); color: var(--obsidian);
+  padding: 1.1rem 3rem;
+  font-family: var(--font-caps); font-size: 0.6rem;
+  font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase;
+  border: none; cursor: pointer; position: relative; overflow: hidden; display: inline-block;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.btn-gold::before {
+  content: ""; position: absolute; inset: 0; background: var(--gold-light);
+  transform: translateX(-100%); transition: transform 0.4s var(--ease);
+}
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.35); }
+.btn-gold span { position: relative; z-index: 1; }
+
+/* ===== CONTACT / FIND US ===== */
+.contact { background: var(--obsidian2); position: relative; }
+.contact::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.08), transparent 60%);
+  pointer-events: none;
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.contact-detail { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2.5rem; }
+.contact-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(201,168,76,0.5);
+}
+.contact-value { font-size: 0.95rem; font-weight: 300; color: rgba(245,240,232,0.75); line-height: 1.6; }
+.contact-value a { color: var(--gold-light); transition: color 0.3s; }
+.contact-value a:hover { color: var(--gold); }
+.hours-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 2rem; }
+.hours-day { font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.hours-time { font-size: 0.82rem; font-weight: 300; color: rgba(245,240,232,0.55); }
+.social-links { display: flex; gap: 0.75rem; margin-top: 2rem; }
+.social-link {
+  width: 42px; height: 42px; border: 1px solid rgba(201,168,76,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,240,232,0.4); transition: all 0.3s var(--ease);
+}
+.social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+.map-wrap { position: relative; }
+.map-wrap iframe { width: 100%; height: 420px; border: none; filter: grayscale(30%) brightness(0.9); display: block; }
+.map-label {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem;
+  background: rgba(18,16,14,0.92); font-family: var(--font-caps); font-size: 0.52rem;
+  letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,240,232,0.55);
+}
+
+/* ===== FOOTER ===== */
+.footer { background: var(--obsidian); border-top: 1px solid rgba(201,168,76,0.12); padding: 3.5rem; }
+.footer-inner { max-width: 1260px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+.footer-logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); }
+.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a { font-family: var(--font-caps); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.3); transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(245,240,232,0.18); }
+
+/* ===== WHATSAPP ===== */
+.whatsapp-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 58px; height: 58px; background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.whatsapp-btn:hover { transform: scale(1.12) translateY(-2px); box-shadow: 0 8px 35px rgba(37,211,102,0.55); }
+.whatsapp-btn svg { width: 30px; height: 30px; fill: white; }
+.whatsapp-pulse {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.35);
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+@keyframes waPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.18); opacity: 0; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .service-detail-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .service-detail-img-wrap { max-width: 500px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .service-list-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav { padding: 1.2rem 1.5rem; }
+  .nav.scrolled { padding: 0.9rem 1.5rem; }
+  section { padding: 4.5rem 1.5rem; }
+  .service-hero-content { padding: 0 1.5rem 4rem; }
+  .hero-corner { display: none; }
+  .service-list-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .service-item { padding: 2rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .service-detail-img-badge { display: none; }
+}
+</style>
+
+<style>
+/* ===== PAGE TRANSITION ===== */
+#page-transition {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #12100E;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+#page-transition.fade-out { opacity: 1; pointer-events: all; }
+body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2,1); }
+@keyframes pageIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <a href="/" class="nav-logo-wrap">
+    <span class="nav-logo-name">Style Switch</span>
+    <span class="nav-logo-sub">Family Salon · Kharghar</span>
+  </a>
+  <a href="/#services" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+    All Services
+  </a>
+</nav>
+
+<!-- HERO / HEADER BANNER -->
+<section class="service-hero" id="home">
+  <div class="service-hero-bg"></div>
+  <div class="service-hero-vignette"></div>
+  <div class="service-hero-grain"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="service-hero-content">
+    <p class="service-hero-breadcrumb">Style Switch Family Salon &nbsp;·&nbsp; Services</p>
+    <h1 class="service-hero-title">The Art of<br><em>Styling</em></h1>
+    <div class="service-hero-divider"></div>
+    <p class="service-hero-tagline">Precision Styling · Bespoke Finishes · Every Occasion</p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>Hair Ironing</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Tong Curls</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Men's Styling</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Women's Styling</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Blow Dry</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Finish &amp; Shine</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Hair Ironing</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Tong Curls</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Men's Styling</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Women's Styling</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Blow Dry</span><span class="marquee-sep">✦</span></div>
+    <div class="marquee-item"><span>Finish &amp; Shine</span><span class="marquee-sep">✦</span></div>
+  </div>
+</div>
+
+<!-- SERVICE DETAIL — IMAGE + SUMMARY -->
+<section class="service-detail" id="about">
+  <div class="container">
+    <div class="service-detail-grid">
+
+      <!-- IMAGE -->
+      <div class="service-detail-img-wrap reveal-left">
+        <div class="service-detail-img-frame"></div>
+        <img
+          class="service-detail-img"
+          src="styling-service-img1.avif"
+          alt="Hair Styling at Style Switch Family Salon"
+        />
+        <div class="service-detail-img-badge">
+          <div class="badge-num">5+</div>
+          <div class="badge-label">Styling<br>Specialists</div>
+        </div>
+      </div>
+
+      <!-- TEXT -->
+      <div class="service-detail-text reveal-right">
+        <span class="section-eyebrow">Our Craft</span>
+        <h2 class="section-title">Styling That <em style="font-style:italic;color:var(--gold);">Speaks</em></h2>
+        <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
+        <p class="service-summary-text">
+          At Style Switch, styling is more than a finish — it's a statement. Whether you're stepping out for a casual day or a special evening, our expert stylists craft every look with precision, texture, and personality.
+        </p>
+        <p class="service-summary-text" style="margin-top:1rem;">
+          From sleek ironed elegance to voluminous tong-curled waves, we tailor each session to your hair type, face structure, and occasion — so you leave looking and feeling exactly like <em style="font-style:italic;color:var(--gold);">you</em>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE LIST -->
+<section class="service-list-section" id="services">
+  <div class="container">
+    <div class="service-list-header reveal">
+      <span class="section-eyebrow">What We Offer</span>
+      <h2 class="section-title light">Styling <em style="font-style:italic;color:var(--gold-light);">Menu</em></h2>
+      <div class="gold-rule" style="max-width:400px;margin:1.5rem auto;"><div class="gold-rule-diamond"></div></div>
+      <p style="color:rgba(245,240,232,0.45);font-size:0.88rem;font-weight:300;max-width:480px;margin:0 auto;line-height:1.7;">
+        Choose from our curated range of styling services — each delivered with care, craft, and the finest products.
+      </p>
+    </div>
+
+    <div class="service-list-grid">
+
+      <div class="service-item reveal delay-1">
+        <div class="service-item-num">01</div>
+        <div class="service-item-body">
+          <div class="service-item-name">Hair Ironing</div>
+          <div class="service-item-desc">Sleek, frizz-free straightening for a polished, glass-smooth finish that lasts all day.</div>
+        </div>
+        <div class="service-item-diamond"></div>
+      </div>
+
+      <div class="service-item reveal delay-2">
+        <div class="service-item-num">02</div>
+        <div class="service-item-body">
+          <div class="service-item-name">Tong</div>
+          <div class="service-item-desc">Defined curls and waves crafted with a curling tong — from loose beachy spirals to tight glamour ringlets.</div>
+        </div>
+        <div class="service-item-diamond"></div>
+      </div>
+
+      <div class="service-item reveal delay-3">
+        <div class="service-item-num">03</div>
+        <div class="service-item-body">
+          <div class="service-item-name">Hair Ironing &amp; Wash</div>
+          <div class="service-item-desc">A refreshing wash followed by a professional iron-out — clean, straight, and salon-fresh every time.</div>
+        </div>
+        <div class="service-item-diamond"></div>
+      </div>
+
+      <div class="service-item reveal delay-4">
+        <div class="service-item-num">04</div>
+        <div class="service-item-body">
+          <div class="service-item-name">Men's Hair Styling</div>
+          <div class="service-item-desc">Sharp, modern grooming styles tailored for the gentleman — textured, slicked, or classic sculpted looks.</div>
+        </div>
+        <div class="service-item-diamond"></div>
+      </div>
+
+      <div class="service-item reveal delay-5" style="grid-column: 1 / -1; max-width: 100%;">
+        <div class="service-item-num">05</div>
+        <div class="service-item-body">
+          <div class="service-item-name">Women's Hair Styling</div>
+          <div class="service-item-desc">From blow-dry volumes and soft curls to event-ready up-dos — styling that celebrates every woman's unique beauty.</div>
+        </div>
+        <div class="service-item-diamond"></div>
+      </div>
+
+    </div>
+
+    <div class="service-cta-wrap reveal">
+      <a href="https://wa.me/919149151763?text=Hi!%20I%27d%20like%20to%20book%20a%20Styling%20appointment%20at%20Style%20Switch%20Family%20Salon." target="_blank" class="btn-gold">
+        <span>Book a Styling Session →</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT / FIND US -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <span class="section-eyebrow">Find Us</span>
+      <h2 class="section-title light">Visit the <em style="font-style:italic;color:var(--gold-light);">Salon</em></h2>
+      <div class="gold-rule" style="max-width:400px;margin:1.5rem auto;"><div class="gold-rule-diamond"></div></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="contact-detail">
+          <div class="contact-label">Address</div>
+          <div class="contact-value">Sector 20, Kharghar,<br>Navi Mumbai — 410 210, Maharashtra</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value"><a href="tel:+919149151763">+91 91491 51763</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Opening Hours</div>
+          <div class="hours-grid">
+            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
+            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
+            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/styleswitchfamilysalon" target="_blank" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/919149151763" target="_blank" class="social-link" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="tel:+919149151763" class="social-link" aria-label="Call Us">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.23872780268!2d73.06835577384481!3d19.053238682146617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3a0b5f5a06f%3A0xb8b9f9569694721c!2sStyle%20Switch%20Family%20Salon!5e0!3m2!1sen!2sin!4v1775185634538!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Style Switch Family Salon Location"></iframe>
+          <div class="map-label">Style Switch Family Salon · Sector 20, Kharghar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Style <em>Switch</em> Family Salon</div>
+    <ul class="footer-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#gallery">Gallery</a></li>
+      <li><a href="/#booking">Book Now</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2025 Style Switch Family Salon. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919149151763?text=Hi!%20I%27d%20like%20to%20book%20a%20Styling%20appointment%20at%20Style%20Switch%20Family%20Salon."
+   target="_blank" class="whatsapp-btn" aria-label="Book via WhatsApp">
+  <div class="whatsapp-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ─── SCROLL PROGRESS ───
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  progress.style.width = scrolled + '%';
+});
+
+// ─── NAV SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+
+<div id="page-transition"></div>
+<script>
+// ─── PAGE TRANSITION ───
+(function() {
+  var overlay = document.getElementById('page-transition');
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') ||
+        href.startsWith('tel') || href.startsWith('mailto') ||
+        a.target === '_blank') return;
+    e.preventDefault();
+    overlay.classList.add('fade-out');
+    setTimeout(function() { window.location.href = href; }, 320);
+  });
+})();
+</script>
+</body>
+</html>
