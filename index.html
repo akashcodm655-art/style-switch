@@ -1195,6 +1195,9 @@ section { padding: 7rem 3.5rem; }
 body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2,1); }
 @keyframes pageIn { to { opacity: 1; } }
 </style>
+<!-- DNS prefetch for external domains used in service pages -->
+<link rel="dns-prefetch" href="https://images.unsplash.com"/>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin/>
 </head>
 <body>
 
@@ -2710,20 +2713,61 @@ if (di) di.setAttribute('min', new Date().toISOString().split('T')[0]);
   window.navigateTo = navigateTo;
 })();
 
-// ─── PREFETCH ALL SERVICE PAGES ───
+// ─── AGGRESSIVE BACKGROUND PRELOAD ───
 (function() {
-  if (!('IntersectionObserver' in window)) return;
-  var pages = ['hair-services', 'styling-service', 'color-services', 'mani-pedi', 'skincare', 'massage-body', 'waxing-services', 'threading'];
-  // Prefetch after page is idle
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(function() {
-      pages.forEach(function(p) {
-        var link = document.createElement('link');
-        link.rel = 'prefetch'; link.href = '/' + p;
-        document.head.appendChild(link);
+  // All pages and every asset they need
+  var assets = [
+    // HTML pages
+    '/hair-services.html',
+    '/styling-service.html',
+    '/color-services.html',
+    '/mani-pedi.html',
+    '/skincare.html',
+    '/massage-body.html',
+    '/waxing-services.html',
+    '/threading.html',
+    // Local images used by service pages
+    '/hair-services-img1.webp',
+    '/hair-services-img2.jpg',
+    '/styling-service-img1.avif',
+    '/color-services-img1.jpg',
+    '/color-services-img2.jpg',
+    '/massage-body-img1.webp',
+    '/skincare-img1.png',
+    '/skincare-img2.webp',
+    '/waxing-services-img1.webp',
+    '/waxing-services-img2.jpg',
+    '/waxing-services-img3.png',
+    '/threading-img1.webp',
+    // Unsplash images used by service pages
+    'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=85',
+    'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=85',
+    'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=900&q=85',
+    'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=85',
+    'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80',
+    'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80',
+    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=900&q=80',
+    'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80',
+    'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&q=80'
+  ];
+
+  function preloadNext(index) {
+    if (index >= assets.length) return;
+    var url = assets[index];
+    fetch(url, { mode: 'no-cors', credentials: 'omit', cache: 'force-cache' })
+      .finally(function() {
+        // Small gap between fetches so we don't saturate bandwidth
+        setTimeout(function() { preloadNext(index + 1); }, 150);
       });
-    });
   }
+
+  // Wait until the main page is fully loaded and idle, then start
+  window.addEventListener('load', function() {
+    var delay = 'requestIdleCallback' in window
+      ? function(cb) { requestIdleCallback(cb, { timeout: 3000 }); }
+      : function(cb) { setTimeout(cb, 2000); };
+    delay(function() { preloadNext(0); });
+  });
 })();
 </script>
 </body>
