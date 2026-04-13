@@ -2067,7 +2067,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
       </div>
       <div>
         <div class="map-wrap">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.23872780268!2d73.06835577384481!3d19.053238682146617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3a0b5f5a06f%3A0xb8b9f9569694721c!2sStyle%20Switch%20Family%20Salon!5e0!3m2!1sen!2sin!4v1775185634538!5m2!1sen!2sin"
+          <iframe data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.23872780268!2d73.06835577384481!3d19.053238682146617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3a0b5f5a06f%3A0xb8b9f9569694721c!2sStyle%20Switch%20Family%20Salon!5e0!3m2!1sen!2sin!4v1775185634538!5m2!1sen!2sin" src="about:blank"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             title="Style Switch Family Salon Location"></iframe>
           <div class="map-label">Style Switch Family Salon · Sector 20, Kharghar</div>
@@ -2407,7 +2407,7 @@ window.addEventListener('load', () => {
         const pd = document.getElementById('popup-date');
         if (pd) pd.setAttribute('min', new Date().toISOString().split('T')[0]);
       }, 400);
-    }, 2200);
+    }, 800);
   }
 });
 
@@ -2758,18 +2758,18 @@ if (di) di.setAttribute('min', new Date().toISOString().split('T')[0]);
     '/waxing-services.html',
     '/threading.html',
     // Local images used by service pages
-    '/hair-services-img1.webp',
-    '/hair-services-img2.jpg',
-    '/styling-service-img1.avif',
-    '/color-services-img1.jpg',
-    '/color-services-img2.jpg',
-    '/massage-body-img1.webp',
-    '/skincare-img1.png',
-    '/skincare-img2.webp',
-    '/waxing-services-img1.webp',
-    '/waxing-services-img2.jpg',
-    '/waxing-services-img3.png',
-    '/threading-img1.webp',
+    '/1776057896119_11.jpg',
+    '/1776057896120_22.webp',
+    '/1776057896122_9.webp',
+    '/1776057896118_33.jpg',
+    '/1776057896117_44.avif',
+    '/1776057896116_55.jpg',
+    '/1776057896121_10.jpg',
+    '/1776057896122_111.png',
+    '/1776057896123_77.webp',
+    '/1776057896123_88.png',
+    '/1776057896120_99.webp',
+    '/1776057896114_66.webp',
     // Unsplash images used by service pages
     'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=85',
     'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=85',
@@ -2799,6 +2799,23 @@ if (di) di.setAttribute('min', new Date().toISOString().split('T')[0]);
       : function(cb) { setTimeout(cb, 2000); };
     delay(function() { preloadNext(0); });
   });
+})();
+</script>
+
+<script>
+// ─── LAZY LOAD GOOGLE MAP ───
+(function() {
+  var iframe = document.querySelector('iframe[data-src]');
+  if (!iframe) return;
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      iframe.src = iframe.getAttribute('data-src');
+      observer.disconnect();
+    }
+  }, { rootMargin: '200px' });
+  observer.observe(iframe);
+  // Mark so we don't double-inject
+  document.documentElement.setAttribute('lazyMap','1');
 })();
 </script>
 </body>
