@@ -293,6 +293,10 @@ body:hover .cursor-dot { opacity: 1; }
 .mobile-close {
   position: absolute; top: 1.5rem; right: 2rem; font-size: 2rem;
   color: var(--ivory); cursor: none; background: none; border: none;
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-close { display: block; }
 }
 
 /* ===== HERO ===== */
@@ -1198,11 +1202,15 @@ section { padding: 7rem 3.5rem; }
   body { cursor: auto; }
   .cursor-dot, .cursor-ring { display: none; }
   .svc-panel { flex: 0 0 80vw; height: 420px; }
+  .stat-num { font-size: 2.6rem; }
+  .stat-label { font-size: 0.48rem; letter-spacing: 0.25em; }
 }
 @media (max-width: 480px) {
   .intro-stats { grid-template-columns: 1fr 1fr; }
   .pillars-grid { grid-template-columns: 1fr; }
   .svc-panel { flex: 0 0 90vw; height: 380px; }
+  .stat-num { font-size: 2.2rem; }
+  .stat-label { font-size: 0.45rem; letter-spacing: 0.2em; }
 }
 </style>
 
