@@ -403,6 +403,61 @@ ul { list-style: none; }
 }
 .nav-back:hover { color: var(--gold); }
 .nav-back svg { width: 14px; height: 14px; }
+
+/* ===== PRICE TAGS ===== */
+.service-list-item { justify-content: space-between; }
+.svc-list-item { justify-content: space-between; }
+.price-tag {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: 1rem;
+}
+.price-tag .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+
+/* ===== GENDERED PRICE COLUMNS ===== */
+.price-columns {
+  display: flex; gap: 0; flex-shrink: 0; margin-left: 1rem;
+  border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; overflow: hidden;
+}
+.price-col {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0.3rem 0.7rem; gap: 0.15rem; min-width: 62px;
+}
+.price-col:first-child {
+  border-right: 1px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.05);
+}
+.price-col:last-child {
+  background: rgba(139,0,0,0.06);
+}
+.price-col-label {
+  font-family: var(--font-caps); font-size: 0.38rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.55); line-height: 1;
+}
+.price-col-amount {
+  font-family: var(--font-serif); font-size: 0.9rem; font-weight: 400; color: var(--gold);
+  white-space: nowrap; line-height: 1;
+}
+.price-col-amount .rupee { font-family: var(--font-sans); font-size: 0.65rem; }
+.service-item-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; margin-left: 1rem; flex-shrink: 0;
+}
+.service-item-price .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.svc-item-price {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.svc-sub-price {
+  font-family: var(--font-serif); font-size: 0.88rem;
+  color: rgba(201,168,76,0.8); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.price-note {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.45);
+  margin-top: 1.5rem; text-align: center; padding: 0.75rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.price-note.dark { color: var(--muted); border-color: rgba(201,168,76,0.2); }
 </style>
 
 <style>
@@ -509,14 +564,44 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
             <span class="service-list-name light">Head Massage</span>
+            <div class="price-columns">
+              <div class="price-col">
+                <span class="price-col-label">Male</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>350</span>
+              </div>
+              <div class="price-col">
+                <span class="price-col-label">Female</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>400</span>
+              </div>
+            </div>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
             <span class="service-list-name light">Foot Massage</span>
+            <div class="price-columns">
+              <div class="price-col">
+                <span class="price-col-label">Male</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>400</span>
+              </div>
+              <div class="price-col">
+                <span class="price-col-label">Female</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>400</span>
+              </div>
+            </div>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
             <span class="service-list-name light">Head Massage with Wash</span>
+            <div class="price-columns">
+              <div class="price-col">
+                <span class="price-col-label">Male</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>400</span>
+              </div>
+              <div class="price-col">
+                <span class="price-col-label">Female</span>
+                <span class="price-col-amount"><span class="rupee">₹</span>600</span>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -550,19 +635,19 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <ul class="service-list">
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Full Leg</span>
+            <span class="service-list-name dark">Full Leg</span><span class="price-tag"><span class="rupee">₹</span>600</span>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Full Hand</span>
+            <span class="service-list-name dark">Full Hand</span><span class="price-tag"><span class="rupee">₹</span>600</span>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Full Body</span>
+            <span class="service-list-name dark">Full Body</span><span class="price-tag"><span class="rupee">₹</span>3000</span>
           </li>
           <li class="service-list-item reveal delay-4">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Half Legs</span>
+            <span class="service-list-name dark">Half Legs</span><span class="price-tag"><span class="rupee">₹</span>400</span>
           </li>
         </ul>
       </div>
@@ -591,9 +676,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <div class="contact-detail">
           <div class="contact-label">Opening Hours</div>
           <div class="hours-grid">
-            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
-            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
-            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+            <div class="hours-day">Mon – Sun</div><div class="hours-time">9:00 AM – 11:00 PM</div>
           </div>
         </div>
         <div class="social-links">
