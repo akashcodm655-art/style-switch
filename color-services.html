@@ -328,27 +328,36 @@ section { padding: 6rem 3.5rem; }
 .svc-item-name.sub-name { font-size: 0.9rem; color: var(--muted); }
 .svc-item-name.sub-name.light { color: rgba(245,240,232,0.5); }
 
-/* ===== HIGHLIGHTS NESTED ===== */
-.highlights-wrap { margin-top: 1.5rem; }
-.highlight-group { margin-bottom: 1.5rem; }
-.highlight-group-label {
-  font-family: var(--font-caps); font-size: 0.5rem; letter-spacing: 0.35em;
-  text-transform: uppercase; color: rgba(201,168,76,0.6);
-  border-left: 2px solid var(--gold); padding-left: 0.75rem;
-  margin-bottom: 0.5rem; display: block;
+/* ===== CLEAN SERVICE ROW ===== */
+.svc-row {
+  display: flex; align-items: center;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  gap: 1rem;
 }
-.highlight-sub-row {
-  display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(201,168,76,0.07);
+.svc-row:first-of-type { border-top: 1px solid rgba(201,168,76,0.1); }
+.svc-row-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
 }
-.highlight-tag {
-  font-family: var(--font-sans); font-size: 0.72rem; font-weight: 300;
-  color: rgba(245,240,232,0.5); background: rgba(201,168,76,0.06);
-  border: 1px solid rgba(201,168,76,0.15);
-  padding: 0.3rem 0.75rem;
-  transition: all 0.3s;
+.svc-row-info { flex: 1; min-width: 0; }
+.svc-row-name {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--obsidian);
 }
-.highlight-tag:hover { background: rgba(201,168,76,0.12); color: var(--gold); }
+.svc-row-name.light { color: var(--ivory); }
+.svc-row-sub {
+  font-family: var(--font-sans); font-size: 0.73rem; font-weight: 300;
+  color: var(--muted); margin-top: 0.18rem;
+}
+.svc-row-sub.light { color: rgba(245,240,232,0.38); }
+.svc-row-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0;
+  text-align: right;
+}
+.svc-row-price.light { color: var(--gold-light); }
+.svc-row-price .rp { font-family: var(--font-sans); font-size: 0.75rem; }
 
 /* ===== CONTACT ===== */
 .contact { background: var(--obsidian2); position: relative; }
@@ -426,6 +435,35 @@ section { padding: 6rem 3.5rem; }
   .footer-links { justify-content: center; }
   .svc-img-wrap img { height: 320px; }
 }
+
+/* ===== PRICE TAGS ===== */
+.service-list-item { justify-content: space-between; }
+.svc-list-item { justify-content: space-between; }
+.price-tag {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: 1rem;
+}
+.price-tag .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.service-item-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; margin-left: 1rem; flex-shrink: 0;
+}
+.service-item-price .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.svc-item-price {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.svc-sub-price {
+  font-family: var(--font-serif); font-size: 0.88rem;
+  color: rgba(201,168,76,0.8); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.price-note {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.45);
+  margin-top: 1.5rem; text-align: center; padding: 0.75rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.price-note.dark { color: var(--muted); border-color: rgba(201,168,76,0.2); }
 </style>
 
 <style>
@@ -518,26 +556,29 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
 
       <span class="svc-list-label">Services Include</span>
       <div class="svc-list">
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Moustache Colour</div>
-            <div class="svc-item-sub">Precise, natural-looking application</div>
+        <div class="svc-row reveal delay-1">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Moustache Colour</div>
+            <div class="svc-row-sub">Precise, natural-looking application</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>100</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Beard Colour</div>
-            <div class="svc-item-sub">Even coverage, lasting results</div>
+        <div class="svc-row reveal delay-2">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Beard Colour</div>
+            <div class="svc-row-sub">Even coverage, lasting results</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>400</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Hair Colour</div>
-            <div class="svc-item-sub">Full application with premium colour range</div>
+        <div class="svc-row reveal delay-3">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Hair Colour</div>
+            <div class="svc-row-sub">Full application with premium colour range</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>1000</div>
         </div>
       </div>
     </div>
@@ -563,26 +604,29 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
 
       <span class="svc-list-label">Length Options</span>
       <div class="svc-list">
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name light">Below Shoulder</div>
-            <div class="svc-item-sub light">Collar bone to shoulder-blade length</div>
+        <div class="svc-row reveal delay-1">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Below Shoulder</div>
+            <div class="svc-row-sub light">Collar bone to shoulder-blade length</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price light"><span class="rp">₹</span>4500</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name light">Mid Waist</div>
-            <div class="svc-item-sub light">Mid-back to waist length</div>
+        <div class="svc-row reveal delay-2">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Mid Waist</div>
+            <div class="svc-row-sub light">Mid-back to waist length</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price light"><span class="rp">₹</span>5500</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name light">Below Waist</div>
-            <div class="svc-item-sub light">Full length, hip and beyond</div>
+        <div class="svc-row reveal delay-3">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Below Waist</div>
+            <div class="svc-row-sub light">Full length, hip and beyond</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price light"><span class="rp">₹</span>6500</div>
         </div>
       </div>
     </div>
@@ -608,26 +652,29 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
 
       <span class="svc-list-label">Root Touch Up — by Length</span>
       <div class="svc-list">
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Short Hair</div>
-            <div class="svc-item-sub">Ear length and above</div>
+        <div class="svc-row reveal delay-1">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Short Hair</div>
+            <div class="svc-row-sub">Ear length and above</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>3500</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Medium Hair</div>
-            <div class="svc-item-sub">Chin to shoulder length</div>
+        <div class="svc-row reveal delay-2">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Medium Hair</div>
+            <div class="svc-row-sub">Chin to shoulder length</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>4500</div>
         </div>
-        <div class="svc-item">
-          <div>
-            <div class="svc-item-name">Long Hair</div>
-            <div class="svc-item-sub">Below shoulder and beyond</div>
+        <div class="svc-row reveal delay-3">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name">Long Hair</div>
+            <div class="svc-row-sub">Below shoulder and beyond</div>
           </div>
-          <div class="svc-item-diamond"></div>
+          <div class="svc-row-price"><span class="rp">₹</span>6000</div>
         </div>
       </div>
     </div>
@@ -651,38 +698,31 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
       <div class="gold-rule"><div class="gold-rule-diamond"></div></div>
       <p class="svc-summary light">Strategic light-catching strands that add dimension and brilliance to your hair. Whether classic foils or freehand painted, every highlight is placed to frame your features beautifully.</p>
 
-      <div class="highlights-wrap">
-        <span class="svc-list-label">1 Streak — by Length</span>
-        <div class="highlight-group">
-          <div class="highlight-sub-row">
-            <span class="highlight-tag">Short</span>
-            <span class="highlight-tag">Medium</span>
-            <span class="highlight-tag">Long</span>
+      <span class="svc-list-label">Highlights — by Length</span>
+      <div class="svc-list">
+        <div class="svc-row reveal delay-1">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Short Hair Highlights</div>
+            <div class="svc-row-sub light">Pixie to ear length</div>
           </div>
+          <div class="svc-row-price light"><span class="rp">₹</span>4000</div>
         </div>
-
-        <div class="svc-list" style="margin-top:1rem;">
-          <div class="svc-item">
-            <div>
-              <div class="svc-item-name light">Short Hair Highlights</div>
-              <div class="svc-item-sub light">Pixie to ear length</div>
-            </div>
-            <div class="svc-item-diamond"></div>
+        <div class="svc-row reveal delay-2">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Medium Hair Highlights</div>
+            <div class="svc-row-sub light">Chin to collarbone length</div>
           </div>
-          <div class="svc-item">
-            <div>
-              <div class="svc-item-name light">Medium Hair Highlights</div>
-              <div class="svc-item-sub light">Chin to collarbone length</div>
-            </div>
-            <div class="svc-item-diamond"></div>
+          <div class="svc-row-price light"><span class="rp">₹</span>5500</div>
+        </div>
+        <div class="svc-row reveal delay-3">
+          <div class="svc-row-diamond"></div>
+          <div class="svc-row-info">
+            <div class="svc-row-name light">Long Hair Highlights</div>
+            <div class="svc-row-sub light">Shoulder length and beyond</div>
           </div>
-          <div class="svc-item">
-            <div>
-              <div class="svc-item-name light">Long Hair Highlights</div>
-              <div class="svc-item-sub light">Shoulder length and beyond</div>
-            </div>
-            <div class="svc-item-diamond"></div>
-          </div>
+          <div class="svc-row-price light"><span class="rp">₹</span>7000</div>
         </div>
       </div>
     </div>
@@ -713,9 +753,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <div class="contact-detail">
           <div class="contact-label">Opening Hours</div>
           <div class="hours-grid">
-            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
-            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
-            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+            <div class="hours-day">Mon – Sun</div><div class="hours-time">9:00 AM – 11:00 PM</div>
           </div>
         </div>
         <div class="social-links">
