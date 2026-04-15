@@ -435,6 +435,60 @@ section { padding: 7rem 3.5rem; }
 }
 .nav-back:hover { color: var(--gold); }
 .nav-back svg { width: 14px; height: 14px; }
+
+/* ===== PRICE TAGS ===== */
+.service-list-item { justify-content: space-between; }
+.svc-list-item { justify-content: space-between; }
+.price-tag {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: 1rem;
+}
+.price-tag .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.service-item-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; margin-left: 1rem; flex-shrink: 0;
+}
+.service-item-price .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.svc-item-price {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.svc-sub-price {
+  font-family: var(--font-serif); font-size: 0.88rem;
+  color: rgba(201,168,76,0.8); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.price-note {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.45);
+  margin-top: 1.5rem; text-align: center; padding: 0.75rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.price-note.dark { color: var(--muted); border-color: rgba(201,168,76,0.2); }
+
+/* ===== DUAL BRAND PRICE COLUMNS ===== */
+.dual-price-header {
+  display: flex; justify-content: flex-end; gap: 0;
+  margin-bottom: 0.25rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.brand-label {
+  font-family: var(--font-caps); font-size: 0.46rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.6);
+  width: 80px; text-align: center; flex-shrink: 0;
+}
+.dual-price {
+  display: flex; gap: 0; flex-shrink: 0; margin-left: 1rem;
+}
+.brand-price {
+  font-family: var(--font-serif); font-size: 0.9rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap;
+  width: 80px; text-align: center; flex-shrink: 0;
+}
+.brand-price .rupee { font-family: var(--font-sans); font-size: 0.72rem; }
+.brand-price.o3 { color: rgba(201,168,76,0.7); }
+.brand-divider {
+  width: 1px; background: rgba(201,168,76,0.15); align-self: stretch; flex-shrink: 0;
+}
 </style>
 
 <style>
@@ -565,23 +619,23 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <ul class="service-list">
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Classic Facial</span>
+            <span class="service-list-name dark">Classic Facial</span><span class="price-tag"><span class="rupee">₹</span>1500</span>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Advance Facial</span>
+            <span class="service-list-name dark">Advance Facial</span><span class="price-tag"><span class="rupee">₹</span>2000</span>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Hydra Facial</span>
+            <span class="service-list-name dark">Hydra Facial</span><span class="price-tag"><span class="rupee">₹</span>3000</span>
           </li>
           <li class="service-list-item reveal delay-4">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">Bridal Facial</span>
+            <span class="service-list-name dark">Bridal Facial</span><span class="price-tag"><span class="rupee">₹</span>4500</span>
           </li>
           <li class="service-list-item reveal delay-5">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name dark">03+7 Step Facial</span>
+            <span class="service-list-name dark">03+7 Step Facial</span><span class="price-tag"><span class="rupee">₹</span>3500</span>
           </li>
         </ul>
       </div>
@@ -616,15 +670,15 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <ul class="service-list">
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Basic Clean Up</span>
+            <span class="service-list-name light">Basic Clean Up</span><span class="price-tag"><span class="rupee">₹</span>800</span>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Advance Clean Up</span>
+            <span class="service-list-name light">Advance Clean Up</span><span class="price-tag"><span class="rupee">₹</span>1200</span>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Premium Clean Up</span>
+            <span class="service-list-name light">Premium Clean Up</span><span class="price-tag"><span class="rupee">₹</span>1500</span>
           </li>
         </ul>
       </div>
@@ -655,43 +709,89 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <p class="service-summary dark">
           Restore your skin's natural luminosity with our targeted D-Tan therapies. Formulated to reverse sun damage, even skin tone, and eliminate dullness — delivering visibly brighter skin from head to toe.
         </p>
+        <div class="dual-price-header">
+          <span class="brand-label">Raaga</span>
+          <div class="brand-divider"></div>
+          <span class="brand-label">O3+</span>
+        </div>
         <ul class="service-list">
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Half Leg</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>300</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>400</span>
+            </div>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Full Leg</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>600</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>800</span>
+            </div>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Front</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>300</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>500</span>
+            </div>
           </li>
           <li class="service-list-item reveal delay-4">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Back</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>300</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>500</span>
+            </div>
           </li>
           <li class="service-list-item reveal delay-5">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Full Hand</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>500</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>600</span>
+            </div>
           </li>
           <li class="service-list-item reveal delay-6">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Underarms</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>100</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>150</span>
+            </div>
           </li>
           <li class="service-list-item reveal" style="transition-delay:0.7s;">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Face</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>500</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>700</span>
+            </div>
           </li>
           <li class="service-list-item reveal" style="transition-delay:0.8s;">
             <div class="service-list-diamond"></div>
             <span class="service-list-name dark">Full Body</span>
+            <div class="dual-price">
+              <span class="brand-price"><span class="rupee">₹</span>1500</span>
+              <div class="brand-divider"></div>
+              <span class="brand-price o3"><span class="rupee">₹</span>1500</span>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </div>
+<p class="price-note dark">Raaga / O3+ prices · Prices vary by area and product</p>
 </section>
 
 <!-- BLEACH -->
@@ -721,35 +821,35 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <ul class="service-list">
           <li class="service-list-item reveal delay-1">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Half Leg</span>
+            <span class="service-list-name light">Half Leg</span><span class="price-tag"><span class="rupee">₹</span>300</span>
           </li>
           <li class="service-list-item reveal delay-2">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Full Leg</span>
+            <span class="service-list-name light">Full Leg</span><span class="price-tag"><span class="rupee">₹</span>600</span>
           </li>
           <li class="service-list-item reveal delay-3">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Front</span>
+            <span class="service-list-name light">Front</span><span class="price-tag"><span class="rupee">₹</span>400</span>
           </li>
           <li class="service-list-item reveal delay-4">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Back</span>
+            <span class="service-list-name light">Back</span><span class="price-tag"><span class="rupee">₹</span>400</span>
           </li>
           <li class="service-list-item reveal delay-5">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Full Hand</span>
+            <span class="service-list-name light">Full Hand</span><span class="price-tag"><span class="rupee">₹</span>600</span>
           </li>
           <li class="service-list-item reveal delay-6">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Underarms</span>
+            <span class="service-list-name light">Underarms</span><span class="price-tag"><span class="rupee">₹</span>200</span>
           </li>
           <li class="service-list-item reveal" style="transition-delay:0.7s;">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Face</span>
+            <span class="service-list-name light">Face</span><span class="price-tag"><span class="rupee">₹</span>500</span>
           </li>
           <li class="service-list-item reveal" style="transition-delay:0.8s;">
             <div class="service-list-diamond"></div>
-            <span class="service-list-name light">Full Body</span>
+            <span class="service-list-name light">Full Body</span><span class="price-tag"><span class="rupee">₹</span>1500</span>
           </li>
         </ul>
       </div>
@@ -778,9 +878,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <div class="contact-detail">
           <div class="contact-label">Opening Hours</div>
           <div class="hours-grid">
-            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
-            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
-            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+            <div class="hours-day">Mon – Sun</div><div class="hours-time">9:00 AM – 11:00 PM</div>
           </div>
         </div>
         <div class="social-links">
