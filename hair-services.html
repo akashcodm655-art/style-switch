@@ -374,6 +374,63 @@ section { padding: 6rem 3.5rem; }
 }
 .nav-back:hover { color: var(--gold); }
 .nav-back svg { width: 14px; height: 14px; }
+
+/* ===== PRICE TAGS ===== */
+.service-list-item { justify-content: space-between; }
+.svc-list-item { justify-content: space-between; }
+.price-tag {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: 1rem;
+}
+.price-tag .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.service-item-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; margin-left: 1rem; flex-shrink: 0;
+}
+.service-item-price .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.svc-item-price {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.svc-sub-price {
+  font-family: var(--font-serif); font-size: 0.88rem;
+  color: rgba(201,168,76,0.8); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.price-note {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.45);
+  margin-top: 1.5rem; text-align: center; padding: 0.75rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.price-note.dark { color: var(--muted); border-color: rgba(201,168,76,0.2); }
+
+/* ===== SERVICE PRICE TABLE ===== */
+.svc-price-table {
+  width: 100%; border-collapse: collapse;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: rgba(255,255,255,0.6);
+  margin-bottom: 0;
+}
+.svc-price-table.dark { background: rgba(18,16,14,0.35); border-color: rgba(201,168,76,0.12); }
+.svc-price-table thead tr { background: var(--obsidian); }
+.svc-price-table thead th {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(201,168,76,0.65);
+  padding: 0.65rem 1.2rem; font-weight: 400; text-align: left;
+}
+.svc-price-table thead th:last-child { text-align: right; }
+.svc-price-table tbody tr { border-bottom: 1px solid rgba(201,168,76,0.1); transition: background 0.2s; }
+.svc-price-table tbody tr:last-child { border-bottom: none; }
+.svc-price-table tbody tr:hover { background: rgba(201,168,76,0.06); }
+.svc-price-table td { padding: 0.85rem 1.2rem; vertical-align: middle; }
+.spt-name { font-family: var(--font-serif); font-size: 0.92rem; font-weight: 500; color: var(--obsidian); display: block; }
+.spt-name.light { color: var(--ivory); }
+.spt-desc { font-size: 0.73rem; font-weight: 300; color: var(--muted); display: block; margin-top: 0.1rem; line-height: 1.4; }
+.spt-desc.light { color: rgba(245,240,232,0.45); }
+.spt-price { font-family: var(--font-serif); font-size: 1rem; font-weight: 500; color: var(--gold); text-align: right; white-space: nowrap; vertical-align: middle; }
+.spt-tier-row td { padding: 0.4rem 1.2rem; }
+.spt-tier-label { font-family: var(--font-caps); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted2); }
+.spt-tier-price { font-size: 0.88rem; color: rgba(201,168,76,0.8) !important; }
 </style>
 
 <style>
@@ -461,28 +518,16 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <span class="section-eyebrow">Precision Grooming</span>
         <h3 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;line-height:1.2;margin-bottom:1rem;color:var(--obsidian);">Sharp cuts. <em style="font-style:italic;color:var(--gold);">Confident style.</em></h3>
         <p class="svc-summary">From classic cuts to modern beard sculpting, our skilled stylists deliver tailored looks that suit your lifestyle and personality — every single visit.</p>
-        <div class="svc-list">
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Men's Haircut</strong>Precision cut tailored to your face shape and style preference.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Hair Styling</strong>Professional blow-dry and styling for any occasion.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Beard Styling</strong>Shape, trim and define your beard with expert grooming.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Hair Botox</strong>Deep conditioning treatment to restore shine and smoothness.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Kids Haircut</strong>Gentle, fun cuts for boys of all ages in a comfortable setting.</div>
-          </div>
-        </div>
+        <table class="svc-price-table">
+          <thead><tr><th>Service</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><span class="spt-name">Men's Haircut</span><span class="spt-desc">Precision cut tailored to your face shape and style preference.</span></td><td class="spt-price">₹150</td></tr>
+            <tr><td><span class="spt-name">Hair Styling</span><span class="spt-desc">Professional blow-dry and styling for any occasion.</span></td><td class="spt-price">₹150</td></tr>
+            <tr><td><span class="spt-name">Beard Styling</span><span class="spt-desc">Shape, trim and define your beard with expert grooming.</span></td><td class="spt-price">₹250</td></tr>
+            <tr><td><span class="spt-name">Hair Botox</span><span class="spt-desc">Deep conditioning treatment to restore shine and smoothness.</span></td><td class="spt-price">₹2000</td></tr>
+            <tr><td><span class="spt-name">Kids Haircut (Boys)</span><span class="spt-desc">Gentle, fun cuts for boys of all ages in a comfortable setting.</span></td><td class="spt-price">₹150</td></tr>
+          </tbody>
+        </table>
         <a href="https://wa.me/919149151763?text=Hi!%20I'd%20like%20to%20book%20a%20Men's%20Hair%20Service%20at%20Style%20Switch%20Family%20Salon." target="_blank" class="svc-book-btn"><span>Book Now via WhatsApp →</span></a>
       </div>
     </div>
@@ -509,28 +554,16 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <span class="section-eyebrow">Luxury Hair Care</span>
         <h3 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;line-height:1.2;margin-bottom:1rem;color:var(--obsidian);">Beautiful hair, <em style="font-style:italic;color:var(--gold);">every day.</em></h3>
         <p class="svc-summary">Our talented stylists understand that great hair is the foundation of confidence. We deliver personalised, salon-quality results from your very first appointment.</p>
-        <div class="svc-list">
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Haircut</strong>Expert cut sculpted to complement your features and lifestyle.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Hairwash</strong>Relaxing cleanse with premium salon products for a fresh start.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Trimming</strong>Precision trim to maintain shape, remove split ends and boost health.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Blow Dry</strong>Sleek, voluminous or textured — styled exactly the way you love it.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Kids Haircut</strong>Gentle, patient and fun cuts for girls in a welcoming environment.</div>
-          </div>
-        </div>
+        <table class="svc-price-table">
+          <thead><tr><th>Service</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><span class="spt-name">Haircut</span><span class="spt-desc">Expert cut sculpted to complement your features and lifestyle.</span></td><td class="spt-price">₹600</td></tr>
+            <tr><td><span class="spt-name">Hairwash</span><span class="spt-desc">Relaxing cleanse with premium salon products for a fresh start.</span></td><td class="spt-price">₹250</td></tr>
+            <tr><td><span class="spt-name">Trimming</span><span class="spt-desc">Precision trim to maintain shape, remove split ends and boost health.</span></td><td class="spt-price">₹300</td></tr>
+            <tr><td><span class="spt-name">Blow Dry</span><span class="spt-desc">Sleek, voluminous or textured — styled exactly the way you love it.</span></td><td class="spt-price">₹250</td></tr>
+            <tr><td><span class="spt-name">Kids Haircut (Girls)</span><span class="spt-desc">Gentle, patient and fun cuts for girls in a welcoming environment.</span></td><td class="spt-price">₹300</td></tr>
+          </tbody>
+        </table>
         <a href="https://wa.me/919149151763?text=Hi!%20I'd%20like%20to%20book%20a%20Women's%20Hair%20Service%20at%20Style%20Switch%20Family%20Salon." target="_blank" class="svc-book-btn"><span>Book Now via WhatsApp →</span></a>
       </div>
     </div>
@@ -557,28 +590,22 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <span class="section-eyebrow">Restore &amp; Revive</span>
         <h3 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;line-height:1.2;margin-bottom:1rem;color:var(--ivory);">Targeted solutions <em style="font-style:italic;color:var(--gold);">that transform.</em></h3>
         <p class="svc-summary light">Our specialist treatments are customised to your hair condition, using premium products that deliver visible, lasting results from the very first session.</p>
-        <div class="svc-list">
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text light"><strong>Hair Fall Treatment</strong>Strengthening scalp therapy to reduce shedding and promote growth.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text light"><strong>Dandruff Treatment</strong>Deep-cleansing scalp ritual to eliminate flakes and restore balance.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text light"><strong>Hair Pumping</strong>Volumising treatment that adds body and bounce from root to tip.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text light"><strong>Hair Botox</strong><span>Small · Medium · Large — tailored intensity for every hair type.</span></div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text light"><strong>Nanoplastia</strong><span>Small · Medium · Large — advanced smoothing for frizz-free, silky results.</span></div>
-          </div>
-        </div>
+        <table class="svc-price-table dark">
+          <thead><tr><th>Service</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><span class="spt-name light">Hair Fall Treatment</span><span class="spt-desc light">Strengthening scalp therapy to reduce shedding and promote growth.</span></td><td class="spt-price">₹1200</td></tr>
+            <tr><td><span class="spt-name light">Dandruff Treatment</span><span class="spt-desc light">Deep-cleansing scalp ritual to eliminate flakes and restore balance.</span></td><td class="spt-price">₹1200</td></tr>
+            <tr><td><span class="spt-name light">Hair Pumping</span><span class="spt-desc light">Volumising treatment that adds body and bounce from root to tip.</span></td><td class="spt-price">₹2000</td></tr>
+            <tr><td colspan="2" style="padding-bottom:0;"><span class="spt-name light">Hair Botox</span><span class="spt-desc light">Tailored intensity for every hair type — price varies by length.</span></td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Short</span></td><td class="spt-price spt-tier-price">₹3500</td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Medium</span></td><td class="spt-price spt-tier-price">₹5000</td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Long</span></td><td class="spt-price spt-tier-price">₹6500</td></tr>
+            <tr><td colspan="2" style="padding-bottom:0;"><span class="spt-name light">Nanoplastia</span><span class="spt-desc light">Advanced smoothing for frizz-free, silky results — price varies by length.</span></td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Short</span></td><td class="spt-price spt-tier-price">₹4500</td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Medium</span></td><td class="spt-price spt-tier-price">₹6000</td></tr>
+            <tr class="spt-tier-row"><td style="padding-left:2rem;"><span class="spt-tier-label">↳ Long</span></td><td class="spt-price spt-tier-price">₹8000</td></tr>
+          </tbody>
+        </table>
         <a href="https://wa.me/919149151763?text=Hi!%20I'd%20like%20to%20book%20a%20Hair%20Treatment%20at%20Style%20Switch%20Family%20Salon." target="_blank" class="svc-book-btn light-btn"><span>Book Treatment →</span></a>
       </div>
     </div>
@@ -605,32 +632,17 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <span class="section-eyebrow">Premium Spa Range</span>
         <h3 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;line-height:1.2;margin-bottom:1rem;color:var(--obsidian);">Nourish. Restore. <em style="font-style:italic;color:var(--gold);">Shine.</em></h3>
         <p class="svc-summary">Choose from our curated collection of world-class hair spa brands, each tailored to deliver the deepest nourishment for your hair and scalp.</p>
-        <div class="svc-list">
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>L'Oréal Hair Spa</strong>Professional repair and shine restoration with L'Oréal's iconic spa ritual.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Schwarzkopf</strong>Intense moisture therapy using Schwarzkopf's advanced formula for silky hair.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Natural World</strong>Enriched botanical spa blends for a naturally healthy, lustrous finish.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Wella</strong>Color-protecting and strengthening spa treatment from the house of Wella.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Moroccan Oil Spa</strong>Argan-infused luxury ritual that transforms dry, damaged hair instantly.</div>
-          </div>
-          <div class="svc-list-item">
-            <div class="svc-list-diamond"></div>
-            <div class="svc-list-text"><strong>Deep Nourishing</strong>Our signature intensive spa for severely dry or chemically treated hair.</div>
-          </div>
-        </div>
+        <table class="svc-price-table">
+          <thead><tr><th>Service</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><span class="spt-name">L'Oréal Hair Spa</span><span class="spt-desc">Professional repair and shine restoration with L'Oréal's iconic spa ritual.</span></td><td class="spt-price">₹1000</td></tr>
+            <tr><td><span class="spt-name">Natural World</span><span class="spt-desc">Enriched botanical spa blends for a naturally healthy, lustrous finish.</span></td><td class="spt-price">₹1300</td></tr>
+            <tr><td><span class="spt-name">Schwarzkopf</span><span class="spt-desc">Intense moisture therapy using Schwarzkopf's advanced formula for silky hair.</span></td><td class="spt-price">₹1500</td></tr>
+            <tr><td><span class="spt-name">Wella</span><span class="spt-desc">Color-protecting and strengthening spa treatment from the house of Wella.</span></td><td class="spt-price">₹1800</td></tr>
+            <tr><td><span class="spt-name">Moroccan Oil Spa</span><span class="spt-desc">Argan-infused luxury ritual that transforms dry, damaged hair instantly.</span></td><td class="spt-price">₹2500</td></tr>
+            <tr><td><span class="spt-name">Deep Nourishing</span><span class="spt-desc">Our signature intensive spa for severely dry or chemically treated hair.</span></td><td class="spt-price" style="color:var(--muted2);font-size:0.75rem;font-family:var(--font-caps);letter-spacing:0.1em;">On Request</td></tr>
+          </tbody>
+        </table>
         <a href="https://wa.me/919149151763?text=Hi!%20I'd%20like%20to%20book%20a%20Hair%20Spa%20at%20Style%20Switch%20Family%20Salon." target="_blank" class="svc-book-btn"><span>Book Hair Spa →</span></a>
       </div>
     </div>
@@ -658,9 +670,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <div class="contact-detail">
           <div class="contact-label">Opening Hours</div>
           <div class="hours-grid">
-            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
-            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
-            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+            <div class="hours-day">Mon – Sun</div><div class="hours-time">9:00 AM – 11:00 PM</div>
           </div>
         </div>
         <div class="social-links">
