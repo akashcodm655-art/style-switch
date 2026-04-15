@@ -390,6 +390,62 @@ section { padding: 7rem 3.5rem; }
 @media (max-width: 480px) {
   .service-detail-img-badge { display: none; }
 }
+
+/* ===== PRICE TAGS ===== */
+.service-list-item { justify-content: space-between; }
+.svc-list-item { justify-content: space-between; }
+.price-tag {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: 1rem;
+}
+.price-tag .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.service-item-price {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; margin-left: 1rem; flex-shrink: 0;
+}
+.service-item-price .rupee { font-family: var(--font-sans); font-size: 0.75rem; }
+.svc-item-price {
+  font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400;
+  color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.svc-sub-price {
+  font-family: var(--font-serif); font-size: 0.88rem;
+  color: rgba(201,168,76,0.8); white-space: nowrap; flex-shrink: 0; margin-left: auto;
+}
+.price-note {
+  font-family: var(--font-caps); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(201,168,76,0.45);
+  margin-top: 1.5rem; text-align: center; padding: 0.75rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.price-note.dark { color: var(--muted); border-color: rgba(201,168,76,0.2); }
+
+/* ===== MP-STYLE TWO-COLUMN LIST ===== */
+.mp-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto; }
+.mp-col-label {
+  font-family: var(--font-caps); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding-bottom: 0.6rem; margin-bottom: 0.5rem;
+}
+.service-list { display: flex; flex-direction: column; }
+.service-list-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.85rem 0; border-bottom: 1px solid rgba(201,168,76,0.08);
+  transition: all 0.3s var(--ease); cursor: default;
+}
+.service-list-item:last-child { border-bottom: none; }
+.service-list-item:hover { padding-left: 0.5rem; }
+.service-list-diamond {
+  width: 6px; height: 6px; background: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0; transition: transform 0.3s;
+}
+.service-list-item:hover .service-list-diamond { transform: rotate(45deg) scale(1.4); }
+.service-list-name {
+  font-size: 0.86rem; font-weight: 300; letter-spacing: 0.04em;
+  color: rgba(245,240,232,0.7); flex: 1;
+}
+@media (max-width: 768px) { .mp-columns { grid-template-columns: 1fr; gap: 0; } }
 </style>
 
 <style>
@@ -503,51 +559,40 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
       </p>
     </div>
 
-    <div class="service-list-grid">
+    <div class="mp-columns">
 
-      <div class="service-item reveal delay-1">
-        <div class="service-item-num">01</div>
-        <div class="service-item-body">
-          <div class="service-item-name">Hair Ironing</div>
-          <div class="service-item-desc">Sleek, frizz-free straightening for a polished, glass-smooth finish that lasts all day.</div>
-        </div>
-        <div class="service-item-diamond"></div>
+      <!-- WOMEN'S STYLING -->
+      <div>
+        <div class="mp-col-label reveal delay-1">Women's Styling</div>
+        <ul class="service-list">
+          <li class="service-list-item reveal delay-1">
+            <div class="service-list-diamond"></div>
+            <span class="service-list-name">Hair Ironing</span>
+            <span class="price-tag"><span class="rupee">₹</span>500</span>
+          </li>
+          <li class="service-list-item reveal delay-2">
+            <div class="service-list-diamond"></div>
+            <span class="service-list-name">Tong</span>
+            <span class="price-tag"><span class="rupee">₹</span>600</span>
+          </li>
+          <li class="service-list-item reveal delay-3">
+            <div class="service-list-diamond"></div>
+            <span class="service-list-name">Hair Ironing &amp; Wash</span>
+            <span class="price-tag"><span class="rupee">₹</span>700</span>
+          </li>
+        </ul>
       </div>
 
-      <div class="service-item reveal delay-2">
-        <div class="service-item-num">02</div>
-        <div class="service-item-body">
-          <div class="service-item-name">Tong</div>
-          <div class="service-item-desc">Defined curls and waves crafted with a curling tong — from loose beachy spirals to tight glamour ringlets.</div>
-        </div>
-        <div class="service-item-diamond"></div>
-      </div>
-
-      <div class="service-item reveal delay-3">
-        <div class="service-item-num">03</div>
-        <div class="service-item-body">
-          <div class="service-item-name">Hair Ironing &amp; Wash</div>
-          <div class="service-item-desc">A refreshing wash followed by a professional iron-out — clean, straight, and salon-fresh every time.</div>
-        </div>
-        <div class="service-item-diamond"></div>
-      </div>
-
-      <div class="service-item reveal delay-4">
-        <div class="service-item-num">04</div>
-        <div class="service-item-body">
-          <div class="service-item-name">Men's Hair Styling</div>
-          <div class="service-item-desc">Sharp, modern grooming styles tailored for the gentleman — textured, slicked, or classic sculpted looks.</div>
-        </div>
-        <div class="service-item-diamond"></div>
-      </div>
-
-      <div class="service-item reveal delay-5" style="grid-column: 1 / -1; max-width: 100%;">
-        <div class="service-item-num">05</div>
-        <div class="service-item-body">
-          <div class="service-item-name">Women's Hair Styling</div>
-          <div class="service-item-desc">From blow-dry volumes and soft curls to event-ready up-dos — styling that celebrates every woman's unique beauty.</div>
-        </div>
-        <div class="service-item-diamond"></div>
+      <!-- MEN'S STYLING -->
+      <div>
+        <div class="mp-col-label reveal delay-2">Men's Styling</div>
+        <ul class="service-list">
+          <li class="service-list-item reveal delay-1">
+            <div class="service-list-diamond"></div>
+            <span class="service-list-name">Men's Hair Styling</span>
+            <span class="price-tag"><span class="rupee">₹</span>150</span>
+          </li>
+        </ul>
       </div>
 
     </div>
@@ -582,9 +627,7 @@ body { opacity: 0; animation: pageIn 0.32s 0.05s forwards cubic-bezier(0.4,0,0.2
         <div class="contact-detail">
           <div class="contact-label">Opening Hours</div>
           <div class="hours-grid">
-            <div class="hours-day">Mon – Fri</div><div class="hours-time">10:00 AM – 9:00 PM</div>
-            <div class="hours-day">Saturday</div><div class="hours-time">9:00 AM – 9:30 PM</div>
-            <div class="hours-day">Sunday</div><div class="hours-time">10:00 AM – 8:00 PM</div>
+            <div class="hours-day">Mon – Sun</div><div class="hours-time">9:00 AM – 11:00 PM</div>
           </div>
         </div>
         <div class="social-links">
