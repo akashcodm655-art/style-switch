@@ -11,43 +11,15 @@
       "headers": [{ "key": "Content-Type", "value": "application/xml" }]
     }
   ],
-  "routes": [
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/hair-services", "dest": "/hair-services.html" },
-    { "src": "/styling-service", "dest": "/styling-service.html" },
-    { "src": "/color-services", "dest": "/color-services.html" },
-    { "src": "/mani-pedi", "dest": "/mani-pedi.html" },
-    { "src": "/skincare", "dest": "/skincare.html" },
-    { "src": "/massage-body", "dest": "/massage-body.html" },
-    { "src": "/waxing-services", "dest": "/waxing-services.html" },
-    { "src": "/threading", "dest": "/threading.html" }
-  ]
-}{
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/robots.txt",
-      "headers": [{ "key": "Content-Type", "value": "text/plain" }]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
-    }
-  ],
-  "routes": [
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/hair-services", "dest": "/hair-services.html" },
-    { "src": "/styling-service", "dest": "/styling-service.html" },
-    { "src": "/color-services", "dest": "/color-services.html" },
-    { "src": "/mani-pedi", "dest": "/mani-pedi.html" },
-    { "src": "/skincare", "dest": "/skincare.html" },
-    { "src": "/massage-body", "dest": "/massage-body.html" },
-    { "src": "/waxing-services", "dest": "/waxing-services.html" },
-    { "src": "/threading", "dest": "/threading.html" }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/hair-services", "destination": "/hair-services.html" },
+    { "source": "/styling-service", "destination": "/styling-service.html" },
+    { "source": "/color-services", "destination": "/color-services.html" },
+    { "source": "/mani-pedi", "destination": "/mani-pedi.html" },
+    { "source": "/skincare", "destination": "/skincare.html" },
+    { "source": "/massage-body", "destination": "/massage-body.html" },
+    { "source": "/waxing-services", "destination": "/waxing-services.html" },
+    { "source": "/threading", "destination": "/threading.html" }
   ]
 }
